@@ -67,17 +67,17 @@ for index, char in enumerate(text):
 23 .
 ```
 
-When we ask Python to find a word, say “Siberia,” in a larger text, it is actually searching for a capital “S” followed by “i” “b” and so on. It returns a match only if it finds exactly the right letters in the right order.  When it makes a match, Python’s find() function will return the location of the first character in the sequence. For example:
+When we ask Python to find a word, say “rivers,” in a larger text, it is actually searching for a lower-case “r” followed by “i” “v” and so on. It returns a match only if it finds exactly the right letters in the right order.  When it makes a match, Python’s .find() function will return the location of the first character in the sequence. For example:
 
 ```python
-text = "Berlin is a city in Germany."
-text.find("Germany")
+text = "Siberia has many rivers."
+text.find("rivers")
 ```
 ```
-20
+17
 ```
 
-Keep in mind that computers are very precise and picky.  Any messiness in the text will cause the word to be missed, so `text.find("berlin")` returns -1, which means that the sequence could not be found. You can also accidentally match characters that are part of the sequence, but not part of a word.  Try `text.find("in Ger")`.  You get 17 as the answer because that is the beginning of the “in Ger” sequence, which is present in the text, but isn’t the thing you’d normally want to find. 
+Keep in mind that computers are very precise and picky.  Any messiness in the text will cause the word to be missed, so `text.find("Rivers")` returns -1, which means that the sequence could not be found. You can also accidentally match characters that are part of the sequence, but not part of a word.  Try `text.find("y riv")`.  You get 15 as the answer because that is the beginning of the “y riv” sequence, which is present in the text, but isn’t the thing you’d normally want to find. 
 
 While pure Python is sufficient for many tasks, natural language processing (NLP) libraries allow us to work computationally with the text as language. NLP reveals a whole host of linguistic attributes of the text that can be used for analysis.  For example, the machine will know if a word is a noun or a verb with part of speech tagging.  We can find the direct object of a verb to determine who is speaking and the subject of that speech.  NLP gives your programs an instant boost of information that opens new forms of analysis and a greater engagement with the linguistic attributes of text than is often common for most historians.    
 
