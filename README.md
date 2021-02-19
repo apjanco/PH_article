@@ -93,7 +93,8 @@ nlp = German()
 doc = nlp("Berlin ist eine Stadt in Deutschland.")
 for token in doc:
     print(token.i, token.text) 
-    
+```
+```    
 0 Berlin
 1 ist
 2 eine
@@ -119,7 +120,9 @@ At this point, you should be able to `print(gazetteer)` and get a nice list of p
 
 ```python
 print(gazetteer) 
->>>['Armenien', 'Aserbaidshan', 'Aserbaidshen', 'Estland', … ] 
+```
+```
+['Armenien', 'Aserbaidshan', 'Aserbaidshen', 'Estland', … ] 
 ```
 
 >>> Extra Trick: Check the first and last entry in the list to make sure it’s not an empty string "" This will happen when you’ve got an empty row in the file.  Python will treat ‘’ as a place, which is nonsense and not what you’re looking for. If the first entry is "", just remove it by slicing the list `gazetteer = gazetteer[1:]` This snips off the first entry.  To cut the last, use `gazetteer = gazetteer[:-1]` For more on slicing see [this *Programming Historian* tutorial](https://programminghistorian.org/en/lessons/manipulating-strings-in-python#slice). 
@@ -129,7 +132,6 @@ Now that we have a list of place names, let’s find where those terms appear in
 
 ```python
 text = "Karl-Heinz Quade ist von März 1944 bis August 1948 im Lager 150 in Grjasowez interniert."
-gazetteer = ['Grjasowez']
 ```
 
 Karl-Heinz Quade was interned in Camp 150 in Gryazovets from March 1944 to August 1948. Looking at the text, there’s one clear place name Gryazovets, which is a town 450 km from Moscow. We just need to show our computer how to find it (and all the other places we care about). 
@@ -151,7 +153,9 @@ matches = matcher(doc)
 for match_id, start, end in matches:
     print(start, end, doc[start:end].text)
 ```
-
+```
+13 14 Grjasowez
+```
 The matcher will find tokens that match the patterns that we’ve given it.  Note that we’ve changed the place names to all lower case letters so that the search will be case-insensitive. Use “ORTH” instead of ”LOWER” if you want case-sensitive search. Note that we get a list of matches that includes what was matched as well as the start and end indexes of the matched spans or tokens. With Matchers, we are able to search for combinations of more than one word such as “New York City” or “Steamboat Springs.” This is really important because you might have “York”, “New York” and “New York City” in your places list. 
 
 If you’ve ever worked with [regular expressions](https://programminghistorian.org/en/lessons/understanding-regular-expressions), some of this should feel familiar. However, rather than matching on sequences of characters, we’re matching token patterns that can also include part of speech and other linguistic attributes of the text.  As an example, let's also match on “Camp 150” (which is “Lager 150” in German). We’ll add a new pattern that will make a match whenever we have “Lager” followed by a number. 
