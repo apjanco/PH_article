@@ -187,17 +187,17 @@ for match_id, start, end in matches:
     count_list.append(doc[start:end].text)
 
 counter = Counter(count_list)
-counter.most_common(10)
+
+for term, count in counter.most_common(10):
+    print(term,count)
 ```
 
 ```
-[('Lager 150', 1), ('Grjasowez', 1)] 
+Lager 150 1
+Grjasowez 1
 ```
-Note that couter result is a tuple with the term and count. One way to get these values is:
-```
-for term, count in counter.most_common(10):
-    print(term, count)
-```
+
+## Export our data
 
 To save our results, we can create a CSV file that contains all of our matches.  A very common and convenient way to do this is the Pandas library (`pip install pandas`).   
 
