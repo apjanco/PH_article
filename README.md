@@ -176,7 +176,7 @@ Once you have an output file that lists which places are named in the corpus, it
 
 Linked Places TSV is an attempt by spatial digital historians to create a data standard for the type of research we are performing in this lesson. This standard is an attempt to make a linked open data uniform formatting system so that researchers can easily share their data with other digital analysis platforms, codes, APIs, etc. You can see the [Linked Places Github](https://github.com/LinkedPasts/linked-places), part of the larger Linked Pasts project, for more details.
 
-Download the blank but formatted sample Linked Places TSV here [**INSERT LINK TO REPOSITORY**]. You will notice that there are a handful of columns in this sample sheet. These are the mandatory columns required for the World Historical Gazetteer.
+Download the blank but formatted sample Linked Places TSV [here](https://github.com/apjanco/PH_article/blob/main/LinkedPlacesTSV.txt). You will notice that there are a handful of columns in this sample sheet. These are the mandatory columns required for the World Historical Gazetteer.
 
 To double check, here is a properly formatted Linked Places TSV for the lesson dataset. Download it here to check your progress or for use in the next part of the lesson [**INSERT LINK TO REPOSITORY/FILE**]. 
 
