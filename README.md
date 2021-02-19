@@ -73,6 +73,9 @@ When we ask Python to find a word, say “Siberia,” in a larger text, it is ac
 text = "Berlin is a city in Germany."
 text.find("Germany")
 ```
+```
+20
+```
 
 Keep in mind that computers are very precise and picky.  Any messiness in the text will cause the word to be missed, so `text.find("berlin")` returns -1, which means that the sequence could not be found. You can also accidentally match characters that are part of the sequence, but not part of a word.  Try `text.find("in Ger")`.  You get 17 as the answer because that is the beginning of the “in Ger” sequence, which is present in the text, but isn’t the thing you’d normally want to find. 
 
@@ -168,6 +171,11 @@ pattern = [{'LOWER': 'lager'},  #the first token should be ‘lager’
 
 matcher.add("LAGER_PATTERN", None, pattern)
 ``` 
+We now see:
+```
+10 12 Lager 150
+13 14 Grjasowez
+```
 
 The pattern can be any sequence of tokens and their attributes. For more on how to wield this new superpower, see the [spaCy documentation](https://spacy.io/api/matcher/), the spaCy course and the [Rule-based Matcher Explorer](https://explosion.ai/demos/matcher). 
 
@@ -177,16 +185,28 @@ from collections import Counter
 count_list = []
 for match_id, start, end in matches:
     count_list.append(doc[start:end].text)
-    counter = Counter(count_list)
-    counter.most_common(10)
+
+counter = Counter(count_list)
+counter.most_common(10)
 ```
+
+```
+[('Lager 150', 1), ('Grjasowez', 1)] 
+```
+Note that couter result is a tuple with the term and count. One way to get these values is:
+```
+for term, count in counter.most_common(10):
+    print(term, count)
+```
+
 To save our results, we can create a CSV file that contains all of our matches.  A very common and convenient way to do this is the Pandas library (`pip install pandas`).   
 
 ```python
 import pandas as pd
+
 data = []
 for match_id, start, end in matches:
-data.append({“start”:start, “end”:end, “id”:match_id, “text”:doc[start:end].text})
+    data.append({“start”:start, “end”:end, “id”:match_id, “text”:doc[start:end].text})
 df = pd.DataFrame(data)
 df.to_csv(“my_matches.csv”, index=False)  
 ```
