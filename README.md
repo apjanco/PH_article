@@ -34,7 +34,8 @@ Users can build their own gazetteer simply by listing places of importance for t
 
 ## 5. Finding Places in Text with Python
 From your computer’s perspective, text is nothing more than a sequence of characters. If you ask Python to iterate over a snippet of text, you’ll see that it returns just one letter at a time. Note that the index starts at 0, not 1 and that spaces are part of the sequence. 
-```
+
+```python
 text = “Siberia has many rivers.”
 for index, char in enumerate(text):
 print(index, char)
@@ -42,7 +43,7 @@ print(index, char)
 
 When we ask Python to find a word, say “Siberia,” in a larger text, it is actually searching for a capital “S” followed by “i” “b” and so on. It returns a match only if it finds exactly the right letters in the right order.  When it makes a match, Python’s find() function will return the location of the first character in the sequence. For example:
 
-```
+```python
 text = “Berlin is a city in Germany.”
 text.find(“Berlin”)
 0
@@ -64,7 +65,7 @@ To load the language, you will import it just like any other Python module. For 
 In Python, this line says to look in the spacy directory, then go into the subfolders lang and de to import the Language object called German from that folder.
 
 We are now able to tokenize our text with the following:
-```
+```python
     from spacy.lang.de import German
 nlp = German()
 doc = nlp(“Berlin ist eine Stadt in Deutschland.”)
@@ -77,60 +78,74 @@ With the language object we can tokenize the text, remove stop words and punctua
 
 Now let’s focus back on the task at hand. We need to load our list of placenames and find where they occur in a text. To do this, let’s start by reading the file with a list of names.  We’ll use Python’s pathlib library, which offers a simple way to read the text or data in a file. In the following example, we import pathlib and use it to open a file called ‘gazetteer.txt’ and load its text.  We then create a Python list of the place names by splitting on the new line character “\n”. This assumes that your file has a line for each place name.  If you’ve used a different format in your file, you may need to split on the comma “,”, tab ”\t” or pipe “|”. To do this, just change the value inside .split() below. 
 
-```from pathlib import Path
+```python
+from pathlib import Path
 gazetteer = Path(“gazetteer.txt”).read_text()
 gazetteer = gazetteer.split(“\n”)
 ```
 
 At this point, you should be able to print(gazetteer) and get a nice list of places:
-```print(gazetteer) 
+
+```python
+print(gazetteer) 
 >>>['Armenien', 'Aserbaidshan', 'Aserbaidshen', 'Estland', … ] 
 ```
 
->>> Extra Trick: Check the first and last entry in the list to make sure it’s not an empty string ‘’ This will happen when you’ve got an empty row in the file.  Python will treat ‘’ as a place, which is nonsense and not what you’re looking for. If the first entry is ‘’, just remove it by slicing the list `gazetteer = gazetteer[1:]` This snips off the first entry.  To cut the last, use `gazetteer = gazetteer[:-1]` For more on slicing see [this *Programming Historian* tutorial](https://programminghistorian.org/en/lessons/manipulating-strings-in-python#slice). 
+>>> Extra Trick: Check the first and last entry in the list to make sure it’s not an empty string '' This will happen when you’ve got an empty row in the file.  Python will treat ‘’ as a place, which is nonsense and not what you’re looking for. If the first entry is '', just remove it by slicing the list `gazetteer = gazetteer[1:]` This snips off the first entry.  To cut the last, use `gazetteer = gazetteer[:-1]` For more on slicing see [this *Programming Historian* tutorial](https://programminghistorian.org/en/lessons/manipulating-strings-in-python#slice). 
 
 ### Matching Place Names 
 Now that we have a list of place names, let’s find where those terms appear in our texts.  As an example, let’s use this sentence:
 
-```text = "Karl-Heinz Quade ist von März 1944 bis August 1948 im Lager 150 in Grjasowez interniert"```
+```python
+text = "Karl-Heinz Quade ist von März 1944 bis August 1948 im Lager 150 in Grjasowez interniert"
+```
 
 Karl-Heinz Quade was interned in Camp 150 in Gryazovets from March 1944 to August 1948. Looking at the text, there’s one clear place name Gryazovets, which is a town 450 km from Moscow. We just need to show our computer how to find it (and all the other places we care about). 
 
-```
+```python
 from spacy.lang.de import German
 from spacy.matcher import Matcher
+
 nlp = German()
+
 doc = nlp(text) #remember text is "Karl-Heinz Quade ist von März...
+
 matcher = Matcher(nlp.vocab)
 for place in gazetteer:
     pattern = [{'LOWER': place.lower()}]
     matcher.add(place, None, pattern)
+
 matches = matcher(doc)
 for match_id, start, end in matches:
     print(match_id, start, end, doc[start:end].text)
 ```
+
 The matcher will find tokens that match the patterns that we’ve given it.  Note that we’ve changed the place names to all lower case letters so that the search will be case-insensitive. Use “ORTH” instead of ”LOWER” if you want case-sensitive search. Note that we get a list of matches that includes what was matched as well as the start and end indexes of the matched spans or tokens. With Matchers, we are able to search for combinations of more than one word such as “New York City” or “Steamboat Springs.” This is really important because you might have “York”, “New York” and “New York City” in your places list. 
 
 If you’ve ever worked with [regular expressions](https://programminghistorian.org/en/lessons/understanding-regular-expressions), some of this should feel familiar. However, rather than matching on sequences of characters, we’re matching token patterns that can also include part of speech and other linguistic attributes of the text.  As an example, let's also match on “Camp 150” (which is “Lager 150” in German). We’ll add a new pattern that will make a match whenever we have “Lager” followed by a number. 
-```
+
+```python
 pattern = [{'LOWER': 'lager'},  #the first token should be ‘lager’
            {'LIKE_NUM': True}] # the second token should be a number 
 # Add the pattern to the matcher
 
 matcher.add("LAGER_PATTERN", None, pattern)
 ``` 
+
 The pattern can be any sequence of tokens and their attributes. For more on how to wield this new superpower, see the [spaCy documentation](https://spacy.io/api/matcher/), the spaCy course and the [Rule-based Matcher Explorer](https://explosion.ai/demos/matcher). 
 
 At this point you may want to know which items appear most frequently.  To get frequencies, you can use Python’s Counter object. In the following cell, we create an empty list and then add the text for each match. The counter will then return the frequency for each term in the list.   
-```from collections import Counter
+```python
+from collections import Counter
 count_list = []
 for match_id, start, end in matches:
-count_list.append(doc[start:end].text)
-counter = Counter(count_list)
-counter.most_common(10)
+    count_list.append(doc[start:end].text)
+    counter = Counter(count_list)
+    counter.most_common(10)
 ```
 To save our results, we can create a CSV file that contains all of our matches.  A very common and convenient way to do this is the Pandas library (`pip install pandas`).   
-```
+
+```python
 import pandas as pd
 data = []
 for match_id, start, end in matches:
@@ -138,10 +153,12 @@ data.append({“start”:start, “end”:end, “id”:match_id, “text”:doc
 df = pd.DataFrame(data)
 df.to_csv(“my_matches.csv”, index=False)  
 ```
+
 The final step in this section is to export our matches in the [tab separated value (TSV) format required by the World Historical Gazetteer](https://github.com/LinkedPasts/linked-places). A TSV file is just formatted text, so we’ll create the file manually using \t to add tab separators and \n to end each line. 
-```
-output_text = “”
-column_header = “id \t title \t title_source \t start \t end  \n”   
+
+```python
+output_text = ""
+column_header = "id \t title \t title_source \t start \t end  \n"  
 output_text += column_header  
 # get the unique place names by creating a list of names and then converting the list to a set
 places_list = [ doc[start:end].text for match_id, start, end in matches ]
@@ -150,8 +167,8 @@ start_date = 1800
 end_date = 2000
 source_title = “Karl-Heinz Quade Diary”
 for id, place in enumerate(unique_places): 
-    output_text += f“{id} \t {place} \t {source_title} \t {start_date} \t {end_date} \n”
-Path(“quade_diary_places.tsv”).write_text(output_text)
+    output_text += f"{id} \t {place} \t {source_title} \t {start_date} \t {end_date} \n"
+Path("quade_diary_places.tsv").write_text(output_text)
 ```
 
 ### Reformatting for Linked Open Data
