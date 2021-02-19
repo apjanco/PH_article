@@ -177,7 +177,9 @@ We now see:
 13 14 Grjasowez
 ```
 
-The pattern can be any sequence of tokens and their attributes. For more on how to wield this new superpower, see the [spaCy documentation](https://spacy.io/api/matcher/), the spaCy course and the [Rule-based Matcher Explorer](https://explosion.ai/demos/matcher). 
+The pattern can be any sequence of tokens and their attributes. For more on how to wield this new superpower, see the [spaCy documentation](https://spacy.io/api/matcher/), the [spaCy course](https://course.spacy.io) and the [Rule-based Matcher Explorer](https://explosion.ai/demos/matcher). 
+
+## Term Frequency 
 
 At this point you may want to know which items appear most frequently.  To get frequencies, you can use Python’s Counter object. In the following cell, we create an empty list and then add the text for each match. The counter will then return the frequency for each term in the list.   
 ```python
@@ -196,8 +198,8 @@ for term, count in counter.most_common(10):
 Lager 150 1
 Grjasowez 1
 ```
-## Direct vs. Indirect Place Mention 
 
+## Direct vs. Indirect Place Mention 
 https://pmbaumgartner.github.io/blog/holy-nlp/ 
 
 ```python
