@@ -110,24 +110,26 @@ Now let’s focus back on the task at hand. We need to load our list of placenam
 
 ```python
 from pathlib import Path
-gazetteer = Path(“gazetteer.txt”).read_text()
-gazetteer = gazetteer.split(“\n”)
+
+gazetteer = Path("gazetteer.txt").read_text()
+gazetteer = gazetteer.split("\n")
 ```
 
-At this point, you should be able to print(gazetteer) and get a nice list of places:
+At this point, you should be able to `print(gazetteer)` and get a nice list of places:
 
 ```python
 print(gazetteer) 
 >>>['Armenien', 'Aserbaidshan', 'Aserbaidshen', 'Estland', … ] 
 ```
 
->>> Extra Trick: Check the first and last entry in the list to make sure it’s not an empty string '' This will happen when you’ve got an empty row in the file.  Python will treat ‘’ as a place, which is nonsense and not what you’re looking for. If the first entry is '', just remove it by slicing the list `gazetteer = gazetteer[1:]` This snips off the first entry.  To cut the last, use `gazetteer = gazetteer[:-1]` For more on slicing see [this *Programming Historian* tutorial](https://programminghistorian.org/en/lessons/manipulating-strings-in-python#slice). 
+>>> Extra Trick: Check the first and last entry in the list to make sure it’s not an empty string "" This will happen when you’ve got an empty row in the file.  Python will treat ‘’ as a place, which is nonsense and not what you’re looking for. If the first entry is "", just remove it by slicing the list `gazetteer = gazetteer[1:]` This snips off the first entry.  To cut the last, use `gazetteer = gazetteer[:-1]` For more on slicing see [this *Programming Historian* tutorial](https://programminghistorian.org/en/lessons/manipulating-strings-in-python#slice). 
 
 ### Matching Place Names 
 Now that we have a list of place names, let’s find where those terms appear in our texts.  As an example, let’s use this sentence:
 
 ```python
-text = "Karl-Heinz Quade ist von März 1944 bis August 1948 im Lager 150 in Grjasowez interniert"
+text = "Karl-Heinz Quade ist von März 1944 bis August 1948 im Lager 150 in Grjasowez interniert."
+gazetteer = ['Grjasowez']
 ```
 
 Karl-Heinz Quade was interned in Camp 150 in Gryazovets from March 1944 to August 1948. Looking at the text, there’s one clear place name Gryazovets, which is a town 450 km from Moscow. We just need to show our computer how to find it (and all the other places we care about). 
@@ -147,7 +149,7 @@ for place in gazetteer:
 
 matches = matcher(doc)
 for match_id, start, end in matches:
-    print(match_id, start, end, doc[start:end].text)
+    print(start, end, doc[start:end].text)
 ```
 
 The matcher will find tokens that match the patterns that we’ve given it.  Note that we’ve changed the place names to all lower case letters so that the search will be case-insensitive. Use “ORTH” instead of ”LOWER” if you want case-sensitive search. Note that we get a list of matches that includes what was matched as well as the start and end indexes of the matched spans or tokens. With Matchers, we are able to search for combinations of more than one word such as “New York City” or “Steamboat Springs.” This is really important because you might have “York”, “New York” and “New York City” in your places list. 
