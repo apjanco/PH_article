@@ -36,19 +36,41 @@ Users can build their own gazetteer simply by listing places of importance for t
 From your computer’s perspective, text is nothing more than a sequence of characters. If you ask Python to iterate over a snippet of text, you’ll see that it returns just one letter at a time. Note that the index starts at 0, not 1 and that spaces are part of the sequence. 
 
 ```python
-text = “Siberia has many rivers.”
+text = "Siberia has many rivers."
 for index, char in enumerate(text):
-print(index, char)
+    print(index, char)
+    
+0 S
+1 i
+2 b
+3 e
+4 r
+5 i
+6 a
+7  
+8 h
+9 a
+10 s
+11  
+12 m
+13 a
+14 n
+15 y
+16  
+17 r
+18 i
+19 v
+20 e
+21 r
+22 s
+23 .
 ```
 
 When we ask Python to find a word, say “Siberia,” in a larger text, it is actually searching for a capital “S” followed by “i” “b” and so on. It returns a match only if it finds exactly the right letters in the right order.  When it makes a match, Python’s find() function will return the location of the first character in the sequence. For example:
 
 ```python
-text = “Berlin is a city in Germany.”
-text.find(“Berlin”)
-0
-text.find(“Germany”)
-20
+text = "Berlin is a city in Germany."
+text.find("Germany")
 ```
 
 Keep in mind that computers are very precise and picky.  Any messiness in the text will cause the word to be missed, so `text.find(“berlin”)` returns -1, which means that the sequence could not be found. You can also accidentally match characters that are part of the sequence, but not part of a word.  Try `text.find(“in Ger”)`.  You get 17 as the answer because that is the beginning of the “in Ger” sequence, which is present in the text, but isn’t the thing you’d normally want to find. 
@@ -176,7 +198,7 @@ Once you have an output file that lists which places are named in the corpus, it
 
 Linked Places TSV is an attempt by spatial digital historians to create a data standard for the type of research we are performing in this lesson. This standard is an attempt to make a linked open data uniform formatting system so that researchers can easily share their data with other digital analysis platforms, codes, APIs, etc. You can see the [Linked Places Github](https://github.com/LinkedPasts/linked-places), part of the larger Linked Pasts project, for more details.
 
-Download the blank but formatted sample Linked Places TSV [here](https://github.com/apjanco/PH_article/blob/main/LinkedPlacesTSV.txt). You will notice that there are a handful of columns in this sample sheet. These are the mandatory columns required for the World Historical Gazetteer.
+Download the blank but formatted sample Linked Places TSV here [**INSERT LINK TO REPOSITORY**]. You will notice that there are a handful of columns in this sample sheet. These are the mandatory columns required for the World Historical Gazetteer.
 
 To double check, here is a properly formatted Linked Places TSV for the lesson dataset. Download it here to check your progress or for use in the next part of the lesson [**INSERT LINK TO REPOSITORY/FILE**]. 
 
