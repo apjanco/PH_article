@@ -1,10 +1,13 @@
-# Finding Places in Text with the World-Historical Gazetteer Draft
+# Finding Places in Text with the World Historical Gazetteer 
 Susan Grunewald and Andrew Janco
+
 sgrunewa@alumni.cmu.edu
+
 ajanco@haverford.edu
 
 ## 1. Lesson Overview: 
 Researchers often need to be able to search a corpus of texts for a defined list of terms. In many cases, historians are interested in certain places named in a text or texts. This lesson details how to programmatically search documents for a list of terms, including place names. First, we produce a CSV file with a row for each occurrence of the term and an HTML file of the text with the terms highlighted. This visualization of the results can be used to interpret the results and to assess their usefulness for a given project.  
+
 In this lesson, readers will use the Python pathlib library to load a directory of files. Using textract, users are able to recognize text in a large range of file types, including pdf, docx, and jpeg files. For those with an existing gazetteer or list of terms, readers will write a function that returns a list of term matches and their locations in a text. For those without a gazetteer, users can use a statistical language model that has been trained to perform named entity recognition (NER). Finally, users will create a TSV file in the Linked Places Format, which can then be uploaded to the [World-Historical Gazetteer](http://whgazetteer.org/) for reconciliation, geocoding, and basic mapping.
 
 This lesson will be useful for anyone wishing to perform NER on a text corpus. Other users may wish to skip the text extraction portion of this lesson and focus solely on the spatial elements of the lesson, that is gazetteer building and using the World Historical Gazetteer. These spatial steps are especially useful for someone looking to create historical maps in a largely point and click interface. We have designed this lesson to show how to combine text analysis with spatial analysis, but understand that some readers may only be interested in one of these two methodologies. We urge you to try both parts of the lesson together if you have time to see how the two can be linked in one project and see how the results of these two parts can be ported into another form of digital analysis. 
