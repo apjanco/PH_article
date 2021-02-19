@@ -39,7 +39,8 @@ From your computer’s perspective, text is nothing more than a sequence of char
 text = "Siberia has many rivers."
 for index, char in enumerate(text):
     print(index, char)
-    
+```
+```
 0  S
 1  i
 2  b
