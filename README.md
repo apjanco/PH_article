@@ -40,16 +40,16 @@ text = "Siberia has many rivers."
 for index, char in enumerate(text):
     print(index, char)
     
-0 S
-1 i
-2 b
-3 e
-4 r
-5 i
-6 a
+0  S
+1  i
+2  b
+3  e
+4  r
+5  i
+6  a
 7  
-8 h
-9 a
+8  h
+9  a
 10 s
 11  
 12 m
@@ -73,11 +73,11 @@ text = "Berlin is a city in Germany."
 text.find("Germany")
 ```
 
-Keep in mind that computers are very precise and picky.  Any messiness in the text will cause the word to be missed, so `text.find(“berlin”)` returns -1, which means that the sequence could not be found. You can also accidentally match characters that are part of the sequence, but not part of a word.  Try `text.find(“in Ger”)`.  You get 17 as the answer because that is the beginning of the “in Ger” sequence, which is present in the text, but isn’t the thing you’d normally want to find. 
+Keep in mind that computers are very precise and picky.  Any messiness in the text will cause the word to be missed, so `text.find("berlin")` returns -1, which means that the sequence could not be found. You can also accidentally match characters that are part of the sequence, but not part of a word.  Try `text.find("in Ger")`.  You get 17 as the answer because that is the beginning of the “in Ger” sequence, which is present in the text, but isn’t the thing you’d normally want to find. 
 
 While pure Python is sufficient for many tasks, natural language processing (NLP) libraries allow us to work computationally with the text as language. NLP reveals a whole host of linguistic attributes of the text that can be used for analysis.  For example, the machine will know if a word is a noun or a verb with part of speech tagging.  We can find the direct object of a verb to determine who is speaking and the subject of that speech.  NLP gives your programs an instant boost of information that opens new forms of analysis and a greater engagement with the linguistic attributes of text than is often common for most historians.    
 
-Our first NLP task is tokenization. This is where our text is split into meaningful parts (be they lexemes or word tokens). The sentence, “Siberia has many rivers.” can be split into the tokens: 'Siberia''has''many''rivers''.'  Note that the ending punctuation is now distinct from the word rivers. The rules for tokenization depend on the language and there are many methods and opinions on how to do it.    
+Our first NLP task is tokenization. This is where our text is split into meaningful parts (be they lexemes or word tokens). The sentence, “Siberia has many rivers.” can be split into the tokens: <Siberia><has><many><rivers><.>  Note that the ending punctuation is now distinct from the word rivers. The rules for tokenization depend on the language and there are many methods and opinions on how to do it.    
 
 For this lesson, we’ll be using an NLP library called [spaCy](https://spacy.io/). This library focuses on “practical NLP” and is designed to be efficient, simple and works well on a basic laptop.  For these reasons, spaCy can be a good choice for practice-minded historians without a fancy gaming computer or research cluster. However, these tasks can also be completed equally well with similar libraries, such as [NLTK](https://www.nltk.org/) or [Stanza](https://stanfordnlp.github.io/stanza/ner.html).  
 
@@ -88,11 +88,19 @@ In Python, this line says to look in the spacy directory, then go into the subfo
 
 We are now able to tokenize our text with the following:
 ```python
-    from spacy.lang.de import German
+from spacy.lang.de import German
 nlp = German()
-doc = nlp(“Berlin ist eine Stadt in Deutschland.”)
+doc = nlp("Berlin ist eine Stadt in Deutschland.")
 for token in doc:
-    print(token.i, token.text)   
+    print(token.i, token.text) 
+    
+0 Berlin
+1 ist
+2 eine
+3 Stadt
+4 in
+5 Deutschland
+6 .
 ```
 Note that each token now has its own index.
 
