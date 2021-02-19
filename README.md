@@ -196,6 +196,17 @@ for term, count in counter.most_common(10):
 Lager 150 1
 Grjasowez 1
 ```
+## Direct vs. Indirect Place Mention 
+
+https://pmbaumgartner.github.io/blog/holy-nlp/ 
+
+```python
+def token_is_direct_place_mention(token):
+    nsubj = token.dep_ == 'nsubj'
+    head_verb = token.head.pos_ == 'VERB'
+    person = token.ent_type_ == 'PERSON'
+    return nsubj and head_verb and person
+```
 
 ## Export our data
 
