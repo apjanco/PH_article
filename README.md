@@ -298,9 +298,18 @@ import pandas as pd
 
 data = []
 for match_id, start, end in matches:
-    data.append({“start”:start, “end”:end, “id”:match_id, “text”:doc[start:end].text})
+    span = doc[start:end]
+    row = dict(
+        start=start, 
+        end=end, 
+        start_char= span.start_char,
+        end_char= span.end_char,
+        id=nlp.vocab.strings[match_id], 
+        text=span.text
+    )
+    data.append(row)
 df = pd.DataFrame(data)
-df.to_csv(“my_matches.csv”, index=False)  
+df.to_csv("my_matches.csv", index=False)  
 ```
 
 The final step in this section is to export our matches in the [tab separated value (TSV) format required by the World Historical Gazetteer](https://github.com/LinkedPasts/linked-places). A TSV file is just formatted text, so we’ll create the file manually using \t to add tab separators and \n to end each line. 
