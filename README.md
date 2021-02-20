@@ -80,6 +80,8 @@ text.find("rivers")
 
 Keep in mind that computers are very precise and picky.  Any messiness in the text will cause the word to be missed, so `text.find("Rivers")` returns -1, which means that the sequence could not be found. You can also accidentally match characters that are part of the sequence, but not part of a word.  Try `text.find("y riv")`.  You get 15 as the answer because that is the beginning of the “y riv” sequence, which is present in the text, but isn’t the thing you’d normally want to find. 
 
+## Natural language processing 
+
 While pure Python is sufficient for many tasks, natural language processing (NLP) libraries allow us to work computationally with the text as language. NLP reveals a whole host of linguistic attributes of the text that can be used for analysis.  For example, the machine will know if a word is a noun or a verb with part of speech tagging.  We can find the direct object of a verb to determine who is speaking and the subject of that speech.  NLP gives your programs an instant boost of information that opens new forms of analysis. As a historian, I appreciate how NLP makes me consider the linguistic aspects of my sources in ways that I normall would not.    
 
 Our first NLP task is tokenization. This is where our text is split into meaningful parts; usually word tokens. The sentence, “Siberia has many rivers.” can be split into the tokens: <Siberia><has><many><rivers><.>  Note that the ending punctuation is now distinct from the word rivers. The rules for tokenization depend on the language your are using. For English and other languages with spaces between words, you often get good results simply by splitting the tokens on spaces. However, a host of rules are also needed to separate punctuation from a token, to split and normalize words (ex. "Let's" > Let us) as well as specific exceptions that don't follow regular patterns (for more see [spaCy documentation](https://spacy.io/usage/linguistic-features/#tokenization)).
@@ -112,6 +114,8 @@ Note that each token now has its own index.
 
 With the language object we can tokenize the text, remove stop words and punctuation, or many other common text processing tasks.  For further information, Ines Montani has created an excellent free [online course](https://course.spacy.io/en/).
 
+## Load the gazetteer 
+
 Now let’s focus back on the task at hand. We need to load our list of placenames and find where they occur in a text. To do this, let’s start by reading the file with a list of names.  We’ll use Python’s pathlib library, which offers a simple way to read the text or data in a file. In the following example, we import pathlib and use it to open a file called ‘gazetteer.txt’ and load its text.  We then create a Python list of the place names by splitting on the new line character “\n”. This assumes that your file has a line for each place name.  If you’ve used a different format in your file, you may need to split on the comma “,”, tab ”\t” or pipe “|”. To do this, just change the value inside .split() below. 
 
 ```python
@@ -139,7 +143,7 @@ Now that we have a list of place names, let’s find where those terms appear in
 text = "Karl-Heinz Quade ist von März 1944 bis August 1948 im Lager 150 in Grjasowez interniert."
 ```
 
-Karl-Heinz Quade was interned in Camp 150 in Gryazovets from March 1944 to August 1948. Looking at the text, there’s one clear place name Gryazovets, which is a town 450 km from Moscow. We just need to show our computer how to find it (and all the other places we care about). 
+"Karl-Heinz Quade was interned in Camp 150 in Gryazovets from March 1944 to August 1948." Looking at the text, there’s one clear place name Gryazovets, which is a town 450 km from Moscow. We just need to show our computer how to find it (and all the other places we care about). 
 
 ```python
 from spacy.lang.de import German
@@ -200,6 +204,7 @@ Lager 150 1
 Grjasowez 1
 ```
 
+## Named Entity Linking?
 ## HTML with displacy 
 
 ## Export our data
