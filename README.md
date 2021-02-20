@@ -156,7 +156,7 @@ doc = nlp("Karl-Heinz Quade ist von März 1944 bis August 1948 im Lager 150 in G
 matcher = Matcher(nlp.vocab)
 for place in gazetteer:
     pattern = [{'LOWER': place.lower()}]
-    matcher.add(place, None, pattern)
+    matcher.add(place, [pattern])
 
 matches = matcher(doc)
 for match_id, start, end in matches:
@@ -174,7 +174,7 @@ pattern = [{'LOWER': 'lager'},  #the first token should be ‘lager’
            {'LIKE_NUM': True}] # the second token should be a number 
 
 # Add the pattern to the matcher
-matcher.add("LAGER_PATTERN", None, pattern)
+matcher.add("LAGER_PATTERN", [pattern])
 ``` 
 We now see (start index, end index, match):
 ```
