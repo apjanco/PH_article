@@ -204,7 +204,14 @@ Lager 150 1
 Grjasowez 1
 ```
 
-## Named Entity Linking?
+## Named entity recognition 
+
+Up to this point, we have been using the spaCy matcher to search a document for specific place names.  It will find all of the places in our list if they occur in the text.  However, what if we want to find places that are not in the list?  For this task, there are pre-trained models that can very generally identify place names.  These are statistical models that have learned a very general "look and feel" of a place name and can make predictions.  This means that the model can identify places that were not in its training data.  It also means that it can make mistakes. With the jump into machine learning, it's important that you keep in mind that the machine is guessing based on what it has learned.  If your materials are significantly different from what the model was trained on, say Ottoman government texts, rather than contemporary Turkish newspaper articles, you should expect rather poor performance. spaCy offers a [web application](https://explosion.ai/demos/displacy-ent) that let's you quickly assess whether the results from a pre-trained model will be sufficiently accurate for your research.    
+
+
+## Named entity linking
+
+
 ## HTML with displacy 
 
 ## Export our data
