@@ -256,11 +256,25 @@ output_path.write_text(svg)
 
 ## Named entity linking
 
-While it can be very helpful to see which places or people appear in a text with named entity recognition, the results are often ambiguous.  A NER model can only say that "I. Ivanov" is a PERSON. Was it Ivan Ivanov the Russian cross-country skier? Maybe it's Ivan Ivanov the retired Bulgarian badminton player?  A human reader would likely know from the context of the text which person was being discussed. Named entity linking is the process of connecting a place or person name to a specific record in a knowledge base. This link connects the predicted entity to a unique record and its associated data.  For example, dbpedia records for a place often contain the latitute and longitude, region, country, time zone, population and other related data. By connecting our text to the dbpedia knowledge base, we are able to connect external information for use in our analysis. 
+While it can be very helpful to see which places or people appear in a text with named entity recognition, the results are often ambiguous.  A NER model can only say that "I. Ivanov" is a PERSON. Was it Ivan Ivanov the Russian cross-country skier? Maybe it's Ivan Ivanov the retired Bulgarian badminton player?  A human reader would likely know from the context of the text which person was being discussed. Named entity linking is the process of connecting a place or person name to a specific record in a knowledge base. This link connects the predicted entity to a unique record and its associated data.  For example, dbpedia records for a place often contain the latitute and longitude, region, country, time zone, population and other related data. By connecting our text to the dbpedia knowledge base, we are able to utilize external information in our analysis. 
 
+There is a useful Python library for spaCy and the dbpedia spotlight.  This library will attempt to match predicted entities with a record in dbpedia.  This relationship will then be available as part of the entity span. To add this library, enter `pip install spacy-dbpedia-spotlight` in the command line and press enter.  
 
+```python
+import spacy
+nlp = spacy.load('de_core_news_sm')
+nlp.add_pipe('dbpedia_spotlight', config={'language_code': 'de'})
 
-## HTML with displacy 
+doc = nlp("Karl-Heinz Quade ist von März 1944 bis August 1948 im Lager 150 in Grjasowez interniert.")
+for ent in doc.ents:
+    print(ent.text, ent.label_, ent.kb_id_)
+```
+```
+Grjasowez DBPEDIA_ENT http://de.dbpedia.org/resource/Grjasowez
+interniert DBPEDIA_ENT http://de.dbpedia.org/resource/Internierung
+```
+Note that we now entites in the document with the "EBPEDIA_ENT" label and the URI for the dbpedia record. Karl-Heinz Quade does not have a page in dbpedia, so we don't get a match, but the Grjasowez record has a wealth of information.      
+
 
 ## Export our data
 
