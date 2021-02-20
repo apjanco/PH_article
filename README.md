@@ -273,8 +273,18 @@ for ent in doc.ents:
 Grjasowez DBPEDIA_ENT http://de.dbpedia.org/resource/Grjasowez
 interniert DBPEDIA_ENT http://de.dbpedia.org/resource/Internierung
 ```
-Note that we now entites in the document with the "EBPEDIA_ENT" label and the URI for the dbpedia record. Karl-Heinz Quade does not have a page in dbpedia, so we don't get a match, but the Grjasowez record has a wealth of information.      
+Note that we now entites in the document with the "EBPEDIA_ENT" label and the URI for the dbpedia record. Karl-Heinz Quade does not have a page in dbpedia, so we don't get a match, but the Grjasowez record has a wealth of information. To access the data, you can send a request to the dbpedia server. Note that I have replace the human-readable page "resource" with a machine-readable "data" and that I add ".json" to the record name.  This will return the data as json.  I use the requests library to parse the json data and make it ready for use in my Python script. 
 
+```python
+import requests
+data = requests.get("http://de.dbpedia.org/data/Grjasowez.json").json()
+```
+
+You can explore this data with `print(data)` or `data.keys()`. For more on json, see this lesson [here](https://programminghistorian.org/en/lessons/json-and-jq)
+Here is an example of how to access the latitute and longitude this this particular result:
+```
+data['http://de.dbpedia.org/resource/Grjasowez']['http://www.georss.org/georss/point'][0]['value']
+```
 
 ## Export our data
 
