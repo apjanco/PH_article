@@ -315,18 +315,29 @@ df.to_csv("my_matches.csv", index=False)
 The final step in this section is to export our matches in the [tab separated value (TSV) format required by the World Historical Gazetteer](https://github.com/LinkedPasts/linked-places). A TSV file is just formatted text, so we’ll create the file manually using \t to add tab separators and \n to end each line. 
 
 ```python
+start_date = 1800
+end_date = 2000
+source_title = "Karl-Heinz Quade Diary"
+
 output_text = ""
 column_header = "id \t title \t title_source \t start \t end  \n"  
 output_text += column_header  
-# get the unique place names by creating a list of names and then converting the list to a set
-places_list = [ doc[start:end].text for match_id, start, end in matches ]
+
+places_list = []
+if matches:
+    places_list.extend([ doc[start:end].text for match_id, start, end in matches ])
+if doc.ents:
+    places_list.extend([ ent.text for ent in doc.ents if ent.label_ == "GPE" or ent.label_ == "LOC"])
+
+# remove duplicate place names by creating a list of names and then converting the list to a set
 unique_places = set(places_list)
-start_date = 1800
-end_date = 2000
-source_title = “Karl-Heinz Quade Diary”
+
 for id, place in enumerate(unique_places): 
     output_text += f"{id} \t {place} \t {source_title} \t {start_date} \t {end_date} \n"
-Path("quade_diary_places.tsv").write_text(output_text)
+
+filename = source_title.lower().replace(' ','_') + '.tsv'
+Path(filename).write_text(output_text)
+print('created: ', filename)
 ```
 
 ### Reformatting for Linked Open Data
