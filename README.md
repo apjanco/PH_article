@@ -78,20 +78,20 @@ text.find("rivers")
 17
 ```
 
-Keep in mind that computers are very precise and picky.  Any messiness in the text will cause the word to be missed, so `text.find("Rivers")` returns -1, which means that the sequence could not be found. You can also accidentally match characters that are part of the sequence, but not part of a word.  Try `text.find("y riv")`.  You get 15 as the answer because that is the beginning of the “y riv” sequence, which is present in the text, but isn’t the thing you’d normally want to find. 
+Keep in mind that computers are very precise and picky.  Any messiness in the text will cause the word to be missed, so `text.find("Rivers")` returns -1, which means that the sequence could not be found. You can also accidentally match characters that are part of the sequence, but not part of a word.  Try `text.find("y riv")`.  You get 15 as the answer because that is the beginning of the “y riv” sequence, which is present in the text, but isn’t a thing that you’d normally want to find. 
 
 ## Natural language processing 
 
-While pure Python is sufficient for many tasks, natural language processing (NLP) libraries allow us to work computationally with the text as language. NLP reveals a whole host of linguistic attributes of the text that can be used for analysis.  For example, the machine will know if a word is a noun or a verb with part of speech tagging.  We can find the direct object of a verb to determine who is speaking and the subject of that speech.  NLP gives your programs an instant boost of information that opens new forms of analysis. As a historian, I appreciate how NLP makes me consider the linguistic aspects of my sources in ways that I normall would not.    
+While pure Python is sufficient for many tasks, natural language processing (NLP) libraries allow us to work computationally with the text as language. NLP reveals a whole host of linguistic attributes of the text that can be used for analysis.  For example, the machine will know if a word is a noun or a verb with part of speech tagging.  We can find the direct object of a verb to determine who is speaking and the subject of that speech.  NLP gives your programs an instant boost of information that opens new forms of analysis. As a historian, I appreciate how NLP makes me consider the linguistic aspects of my sources in ways that I otherwise would not.    
 
 Our first NLP task is tokenization. This is where our text is split into meaningful parts; usually word tokens. The sentence, “Siberia has many rivers.” can be split into the tokens: <Siberia><has><many><rivers><.>  Note that the ending punctuation is now distinct from the word rivers. The rules for tokenization depend on the language your are using. For English and other languages with spaces between words, you often get good results simply by splitting the tokens on spaces. However, a host of rules are also needed to separate punctuation from a token, to split and normalize words (ex. "Let's" > Let us) as well as specific exceptions that don't follow regular patterns (for more see [spaCy documentation](https://spacy.io/usage/linguistic-features/#tokenization)).
 
-For this lesson, we’ll be using an NLP library called [spaCy](https://spacy.io/). This library focuses on “practical NLP” and is designed to be fast, simple and to work well on a basic laptop.  For these reasons, spaCy can be a good choice for the practice-minded historian without a fancy gaming computer or research cluster. As a library, spaCy is highly opinionated and simplicity comes at the cost of choices being made on your behalf. As you learn more about NLP, the [spaCy documentation](https://spacy.io/) is a good place to learn about their specific approach and to assess whether it's the best choice for your particular project.  That said, spaCy works extrelemy well for common tasks such as tokenization, part of speech tagging and named entity recognition. Similar libraries, such as [NLTK](https://www.nltk.org/) or [Stanza](https://stanfordnlp.github.io/stanza/ner.html) are also excellent choices and you can learn a lot by comparing the different approaches these libraries take to similar problems.  
+For this lesson, we’ll be using an NLP library called [spaCy](https://spacy.io/). This library focuses on “practical NLP” and is designed to be fast, simple and to work well on a basic laptop.  For these reasons, spaCy can be a good choice for the practice-minded historian without a powerful computer or research cluster. As a library, spaCy is highly opinionated and simplicity comes at the cost of choices being made on your behalf. As you learn more about NLP, the [spaCy documentation](https://spacy.io/) is a good place to learn about their specific approach and to assess whether it's the best choice for your particular project.  That said, spaCy works extrelemy well for common tasks such as tokenization, part of speech tagging and named entity recognition. Similar libraries, such as [NLTK](https://www.nltk.org/) or [Stanza](https://stanfordnlp.github.io/stanza/ner.html) are also excellent choices and you can learn a lot by comparing the different approaches these libraries take to similar problems.  
 
 Once you’ve run `pip install spacy` [(see this article if you’re new to pip)](https://programminghistorian.org/en/lessons/installing-python-modules-pip), you can now import the object for your language that will have the tokenization rules specific to your language. The spaCy documentation [here](https://spacy.io/usage/models/#languages) lists the currently supported languages and their language codes.
 
 To load the language, you will import it just like any other Python module. For example, `from spacy.lang.de import German` or `from spacy.lang.en import English` 
-In Python, this line says to look in the spacy directory, then go into the subfolders lang and de to import the Language object called German from that folder.
+In Python, this line says to look in the spacy directory, then go into the subfolders `lang` and `de` to import the Language object called German from that folder.
 
 We are now able to tokenize our text with the following:
 ```python
@@ -116,7 +116,7 @@ With the language object we can tokenize the text, remove stop words and punctua
 
 ## Load the gazetteer 
 
-Now let’s focus back on the task at hand. We need to load our list of placenames and find where they occur in a text. To do this, let’s start by reading the file with a list of names.  We’ll use Python’s pathlib library, which offers a simple way to read the text or data in a file. In the following example, we import pathlib and use it to open a file called ‘gazetteer.txt’ and load its text.  We then create a Python list of the place names by splitting on the new line character “\n”. This assumes that your file has a line for each place name.  If you’ve used a different format in your file, you may need to split on the comma “,”, tab ”\t” or pipe “|”. To do this, just change the value inside .split() below. 
+Now let’s focus back on the task at hand. We need to load our list of place names and find where they occur in a text. To do this, let’s start by reading the file with a list of names.  We’ll use Python’s pathlib library, which offers a simple way to read the text or data in a file. In the following example, we import pathlib and use it to open a file called ‘gazetteer.txt’ and load its text.  We then create a Python list of the place names by splitting on the new line character “\n”. This assumes that your file has a line for each place name.  If you’ve used a different format in your file, you may need to split on the comma “,”, tab ”\t” or pipe “|”. To do this, just change the value inside `.split()` below. 
 
 ```python
 from pathlib import Path
@@ -134,13 +134,13 @@ print(gazetteer)
 ['Armenien', 'Aserbaidshan', 'Aserbaidshen', 'Estland', … ] 
 ```
 
->>> Extra Trick: Check the first and last entry in the list to make sure it’s not an empty string "" This will happen when you’ve got an empty row in the file.  Python will treat ‘’ as a place, which is nonsense and not what you’re looking for. If the first entry is "", just remove it by slicing the list `gazetteer = gazetteer[1:]` This snips off the first entry.  To cut the last, use `gazetteer = gazetteer[:-1]` For more on slicing see [this *Programming Historian* tutorial](https://programminghistorian.org/en/lessons/manipulating-strings-in-python#slice). 
+>>> Extra Trick: Check the first and last entry in the list to make sure it’s not an empty string "" This will happen when you’ve got an empty row in the file.  Python will treat "" as a place, which is nonsense and not what you’re looking for. If the first entry is "", just remove it by slicing the list `gazetteer = gazetteer[1:]` This snips off the first entry.  To cut the last, use `gazetteer = gazetteer[:-1]` For more on slicing see [this *Programming Historian* tutorial](https://programminghistorian.org/en/lessons/manipulating-strings-in-python#slice). 
 
 ### Matching Place Names 
 Now that we have a list of place names, let’s find where those terms appear in our texts.  As an example, let’s use this sentence:
 
-```python
-text = "Karl-Heinz Quade ist von März 1944 bis August 1948 im Lager 150 in Grjasowez interniert."
+```text
+Karl-Heinz Quade ist von März 1944 bis August 1948 im Lager 150 in Grjasowez interniert.
 ```
 
 "Karl-Heinz Quade was interned in Camp 150 in Gryazovets from March 1944 to August 1948." Looking at the text, there’s one clear place name Gryazovets, which is a town 450 km from Moscow. We just need to show our computer how to find it (and all the other places we care about). 
@@ -151,7 +151,7 @@ from spacy.matcher import Matcher
 
 nlp = German()
 
-doc = nlp(text) #remember text is "Karl-Heinz Quade ist von März...
+doc = nlp("Karl-Heinz Quade ist von März 1944 bis August 1948 im Lager 150 in Grjasowez interniert.") 
 
 matcher = Matcher(nlp.vocab)
 for place in gazetteer:
@@ -172,23 +172,24 @@ If you’ve ever worked with [regular expressions](https://programminghistorian.
 ```python
 pattern = [{'LOWER': 'lager'},  #the first token should be ‘lager’
            {'LIKE_NUM': True}] # the second token should be a number 
-# Add the pattern to the matcher
 
+# Add the pattern to the matcher
 matcher.add("LAGER_PATTERN", None, pattern)
 ``` 
-We now see:
+We now see (start index, end index, match):
 ```
 10 12 Lager 150
 13 14 Grjasowez
 ```
 
-The pattern can be any sequence of tokens and their attributes. For more on how to wield this new superpower, see the [spaCy documentation](https://spacy.io/api/matcher/), the [spaCy course](https://course.spacy.io) and the [Rule-based Matcher Explorer](https://explosion.ai/demos/matcher). 
+The pattern can be any sequence of tokens and their attributes. For more on how to wield this new superpower, see the [spaCy Matcher documentation](https://spacy.io/api/matcher/), the [spaCy course](https://course.spacy.io) and the [Rule-based Matcher Explorer](https://explosion.ai/demos/matcher). 
 
 ## Term Frequency 
 
-At this point you may want to know which items appear most frequently.  To get frequencies, you can use Python’s Counter object. In the following cell, we create an empty list and then add the text for each match. The counter will then return the frequency for each term in the list.   
+At this point you may want to know which items appear most frequently in the text.  To get frequencies, you can use Python’s Counter object. In the following cell, we create an empty list and then add the text for each match. The counter will then return the frequency for each term in the list.   
 ```python
 from collections import Counter
+
 count_list = []
 for match_id, start, end in matches:
     count_list.append(doc[start:end].text)
@@ -206,7 +207,7 @@ Grjasowez 1
 
 ## Named entity recognition 
 
-Up to this point, we have been using the spaCy matcher to search a document for specific place names.  It will find all of the places in our list if they occur in the text.  However, what if we want to find places that are not in the list? What are all the places that appear in the text? For this task, there are pre-trained models that can very generally identify place names.  These are statistical models that have learned a very general "look and feel" of a place name and can make predictions.  This means that the model can identify places that were not in its training data.  It also means that it can make mistakes. With the jump into machine learning, it's important that you keep in mind that the machine is guessing based on what it has learned.  If your materials are significantly different from what the model was trained on, say Ottoman government texts rather than contemporary Turkish newspaper articles, you should expect rather poor performance.  It is also possible to fine-tune a model on your materials to improve accuracy.     
+Up to this point, we have been using the spaCy matcher to search a document for specific place names.  It will find all of the places in our list if they occur in the text.  However, what if we want to find places that are not in the list? What are all the places that appear in the text? For this task, there are pre-trained models that can generally identify place names.  These are statistical models that have learned the general "look and feel" of a place name and can make predictions.  This means that the model can identify places that were not in its training data.  It also means that it can make mistakes. With the jump into machine learning, it's important that you keep in mind that the machine is making informed predictions based on what it has learned.  If your materials are significantly different from what the model was trained on, say Ottoman government texts rather than contemporary Turkish newspaper articles, you should expect rather poor performance.  It is also possible to fine-tune a model on your materials to improve accuracy.     
 
 To work with a pre-trained model in spaCy, you'll need to download a model.  A list of the current options can be found [here](https://spacy.io/models).  For our German example, use the command line interface to download the small model trained on newspaper articles: `python -m spacy download de_core_news_sm`  To load the model and identify named entities use the following: 
 ```python
@@ -222,10 +223,10 @@ Karl-Heinz Quade PER 0 2
 Grjasowez LOC 13 14
 ```
 
-Just by looking at the text and the relationships between words, the model is able to correctly identify that Karl-Heinz Quade is a person (PER) and that Grjasowez is a place (LOC). Named entity recognition is a powerful tool for finding places, people and organizations in text.  With larger texts you will encounter machine errors, so it's important to review the results and to correct errors.  With Matcher, you will not get these mistakes, but you also won't find places that are not in the gazetteer. 
+Just by looking at the text and the relationships between words, the model is able to correctly identify that Karl-Heinz Quade is a person (PER) and that Grjasowez is a place (LOC). Named entity recognition is a powerful tool for finding places, people and organizations in text.  You will encounter machine errors, so it's important to review the results and to correct errors.  With Matcher, you will not get these mistakes, but you also won't find places that are not in the gazetteer. 
 
 # Displacy
-To see your results in the context of the text, spaCy includes a tool called displacy.  It will generate an image of the text and the predictions that can be very useful when assessing whether the results will be helpful to your research or introduce too many machine errors to be helpful. spaCy also offers a [web application](https://explosion.ai/demos/displacy-ent) that lets you quickly assess whether the results from a pre-trained model will be sufficiently accurate for your research. Similar visualization can be created in your Python script or in a running [Jupyter notebook](https://programminghistorian.org/en/lessons/jupyter-notebooks). 
+To see your results in the context of the text, spaCy includes a useful tool called displacy.  It will generate an image of the text and the predictions that can be very useful when assessing whether the results will be helpful to your research or introduce too many machine errors to be helpful. spaCy also offers a [web application](https://explosion.ai/demos/displacy-ent) that lets you quickly assess whether the results. Similar visualization can be created in your Python script or in a running [Jupyter notebook](https://programminghistorian.org/en/lessons/jupyter-notebooks). 
 
 **python script**
 ```python 
@@ -239,7 +240,7 @@ displacy.serve(doc, style="ent")
 ```python
 displacy.render(doc, jupyter=True, style="ent")
 ```
-With statistical models, you can also use displacy to create an useful visualization of the relationships between words in the text. Just use `style='dep'` To generate this visualization. Displacy visualization can also be saved as a file for use elsewhere.  
+With statistical models, you can also use displacy to create an useful visualization of the relationships between words in the text. Just use `style='dep'` To generate this visualization.
 ```python 
 displacy.render(doc, jupyter=True, style="dep")
 ```
@@ -256,7 +257,7 @@ output_path.write_text(svg)
 
 ## Named entity linking
 
-While it can be very helpful to see which places or people appear in a text with named entity recognition, the results are often ambiguous.  A NER model can only say that "I. Ivanov" is a PERSON. Was it Ivan Ivanov the Russian cross-country skier? Maybe it's Ivan Ivanov the retired Bulgarian badminton player?  A human reader would likely know from the context of the text which person was being discussed. Named entity linking is the process of connecting a place or person name to a specific record in a knowledge base. This link connects the predicted entity to a unique record and its associated data.  For example, dbpedia records for a place often contain the latitute and longitude, region, country, time zone, population and other related data. By connecting our text to the dbpedia knowledge base, we are able to utilize external information in our analysis. 
+While it can be very helpful to see which places or people appear in a text with named entity recognition, the results are often ambiguous.  A NER model can only say that "I. Ivanov" is a PERSON. Was it Ivan Ivanov the Russian cross-country skier? Maybe it's Ivan Ivanov the Bulgarian badminton player?  A human reader would likely know from the context of the text which person was being discussed. Named entity linking is the process of connecting a place or person name to a specific record in a knowledge base. This link connects the predicted entity to a unique record and its associated data.  For example, dbpedia records for a place often contain the latitute and longitude, region, country, time zone, population and other related data. By connecting our text to the dbpedia knowledge base, we are able to utilize external information in our analysis. 
 
 There is a useful Python library for spaCy and the dbpedia spotlight.  This library will attempt to match predicted entities with a record in dbpedia.  This relationship will then be available as part of the entity span. To add this library, enter `pip install spacy-dbpedia-spotlight` in the command line and press enter.  
 
