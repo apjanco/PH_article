@@ -227,6 +227,7 @@ Just by looking at the text and the relationships between words, the model is ab
 
 ## Named entity linking
 
+Named entity linking is the process of connecting a place name to a specific record in a knowledge base.    
 
 ## HTML with displacy 
 
