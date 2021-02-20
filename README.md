@@ -206,7 +206,7 @@ Grjasowez 1
 
 ## Named entity recognition 
 
-Up to this point, we have been using the spaCy matcher to search a document for specific place names.  It will find all of the places in our list if they occur in the text.  However, what if we want to find places that are not in the list? What are all the places that appear in the text? For this task, there are pre-trained models that can very generally identify place names.  These are statistical models that have learned a very general "look and feel" of a place name and can make predictions.  This means that the model can identify places that were not in its training data.  It also means that it can make mistakes. With the jump into machine learning, it's important that you keep in mind that the machine is guessing based on what it has learned.  If your materials are significantly different from what the model was trained on, say Ottoman government texts rather than contemporary Turkish newspaper articles, you should expect rather poor performance. spaCy offers a [web application](https://explosion.ai/demos/displacy-ent) that lets you quickly assess whether the results from a pre-trained model will be sufficiently accurate for your research. It is also possible to fine-tune a model on your materials to improve accuracy.     
+Up to this point, we have been using the spaCy matcher to search a document for specific place names.  It will find all of the places in our list if they occur in the text.  However, what if we want to find places that are not in the list? What are all the places that appear in the text? For this task, there are pre-trained models that can very generally identify place names.  These are statistical models that have learned a very general "look and feel" of a place name and can make predictions.  This means that the model can identify places that were not in its training data.  It also means that it can make mistakes. With the jump into machine learning, it's important that you keep in mind that the machine is guessing based on what it has learned.  If your materials are significantly different from what the model was trained on, say Ottoman government texts rather than contemporary Turkish newspaper articles, you should expect rather poor performance.  It is also possible to fine-tune a model on your materials to improve accuracy.     
 
 To work with a pre-trained model in spaCy, you'll need to download a model.  A list of the current options can be found [here](https://spacy.io/models).  For our German example, use the command line interface to download the small model trained on newspaper articles: `python -m spacy download de_core_news_sm`  To load the model and identify named entities use the following: 
 ```python
@@ -224,10 +224,38 @@ Grjasowez LOC 13 14
 
 Just by looking at the text and the relationships between words, the model is able to correctly identify that Karl-Heinz Quade is a person (PER) and that Grjasowez is a place (LOC). Named entity recognition is a powerful tool for finding places, people and organizations in text.  With larger texts you will encounter machine errors, so it's important to review the results and to correct errors.  With Matcher, you will not get these mistakes, but you also won't find places that are not in the gazetteer. 
 
+# Displacy
+To see your results in the context of the text, spaCy includes a tool called displacy.  It will generate an image of the text and the predictions that can be very useful when assessing whether the results will be helpful to your research or introduce too many machine errors to be helpful. spaCy also offers a [web application](https://explosion.ai/demos/displacy-ent) that lets you quickly assess whether the results from a pre-trained model will be sufficiently accurate for your research. Similar visualization can be created in your Python script or in a running [Jupyter notebook](https://programminghistorian.org/en/lessons/jupyter-notebooks). 
+
+**python script**
+```python 
+from spacy import displacy 
+displacy.serve(doc, style="ent")
+```
+**jupyter notebook**
+```python
+displacy.render(doc, jupyter=True, style="ent")
+```
+With statistical models, you can also use displacy to create an useful visualization of the relationships between words in the text. Just use `style='dep'` To generate this visualization. Displacy visualization can also be saved as a file for use elsewhere.  
+```python 
+displacy.render(doc, jupyter=True, style="dep")
+```
+
+Displacy visualization can also be saved as a file for use elsewhere ([docs](https://spacy.io/usage/visualizers#html)).
+```python
+from pathlib import Path 
+
+svg = displacy.render(doc, style="dep")
+output_path = Path("sentence.svg")
+output_path.write_text(svg)
+```
+![svg_dependency visualization](sentence.svg)
 
 ## Named entity linking
 
-Named entity linking is the process of connecting a place name to a specific record in a knowledge base.    
+While it can be very helpful to see which places or people appear in a text with named entity recognition, the results are often ambiguous.  A NER model can only say that "I. Ivanov" is a PERSON. Was it Ivan Ivanov the Russian cross-country skier? Maybe it's Ivan Ivanov the retired Bulgarian badminton player?  A human reader would likely know from the context of the text which person was being discussed. Named entity linking is the process of connecting a place or person name to a specific record in a knowledge base. This link connects the predicted entity to a unique record and its associated data.  For example, dbpedia records for a place often contain the latitute and longitude, region, country, time zone, population and other related data. By connecting our text to the dbpedia knowledge base, we are able to connect external information for use in our analysis. 
+
+
 
 ## HTML with displacy 
 
