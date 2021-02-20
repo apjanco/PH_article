@@ -6,9 +6,9 @@ sgrunewa@alumni.cmu.edu
 ajanco@haverford.edu
 
 ## 1. Lesson Overview: 
-Researchers often need to be able to search a corpus of texts for a defined list of terms. In many cases, historians are interested in certain places named in a text or texts. This lesson details how to programmatically search documents for a list of terms, including place names. First, we produce a CSV file with a row for each occurrence of the term and an HTML file of the text with the terms highlighted. This visualization of the results can be used to interpret the results and to assess their usefulness for a given project.  
+Researchers often need to be able to search a corpus of texts for a defined list of terms. In many cases, historians are interested in certain places named in a text or texts. This lesson details how to programmatically search documents for a list of terms, including place names. First, we produce a TSV file with a row for each occurrence of the term and an HTML file of the text with the terms highlighted. This visualization of the results can be used to interpret the results and to assess their usefulness for a given project.  
 
-In this lesson, readers will use the Python pathlib library to load a directory of files. Using textract, users are able to recognize text in a large range of file types, including pdf, docx, and jpeg files. For those with an existing gazetteer or list of terms, readers will write a function that returns a list of term matches and their locations in a text. For those without a gazetteer, users can use a statistical language model that has been trained to perform named entity recognition (NER). Finally, users will create a TSV file in the Linked Places Format, which can then be uploaded to the [World-Historical Gazetteer](http://whgazetteer.org/) for reconciliation, geocoding, and basic mapping.
+In this lesson, readers will use the Python pathlib library to load a directory of text files. For those with an existing gazetteer or list of terms, readers will write a function that returns a list of term matches and their locations in a text. For those without a gazetteer, users can use a statistical language model that has been trained to perform named entity recognition (NER). Finally, users will create a TSV file in the Linked Places Format, which can then be uploaded to the [World-Historical Gazetteer](http://whgazetteer.org/) for reconciliation, geocoding, and basic mapping.
 
 This lesson will be useful for anyone wishing to perform NER on a text corpus. Other users may wish to skip the text extraction portion of this lesson and focus solely on the spatial elements of the lesson, that is gazetteer building and using the World Historical Gazetteer. These spatial steps are especially useful for someone looking to create historical maps in a largely point and click interface. We have designed this lesson to show how to combine text analysis with spatial analysis, but understand that some readers may only be interested in one of these two methodologies. We urge you to try both parts of the lesson together if you have time to see how the two can be linked in one project and see how the results of these two parts can be ported into another form of digital analysis. 
 
@@ -17,7 +17,7 @@ Please note that the sample data and context of this lesson constitute an exampl
 ## 2. Historical example:
 This lesson is an application of co-author Susan Grunewald's research and serves as a practical use-case of how and why these methods are beneficial to historians. Grunewald has worked to map forced labor camps of German POWs in the Soviet Union during and after the Second World War. The results of her mapping have shown that contrary to popular memory, German POWs in the Soviet Union were sent more commonly to industrial and reconstruction projects in Western Russia rather than Siberia. She then wanted to understand if POW memoirs gave a false misrepresentation of Siberian captivity, which could have helped to create or promulgate this popular memory.
 
-In this lesson, we will use a list of camp names to identify mentions of camps and locations in POW memoirs. We then use our HTML text output file to determine if a mention is direct, "I was taken to Voikovo," or indirect "I heard that Voikovo was in Siberia." This data can then be mapped to demonstrate that not all direct place mentions in POW memoirs were in Siberia. Rather, the term "Siberia" served as a decorative term that framed POWs as victims who had endured harsh conditions and cruelty in an exoticized Soviet East.
+In this lesson, we will use a list of camp names to identify mentions of camps and locations in POW memoirs. This data can then be mapped to demonstrate that not all direct place mentions in POW memoirs were in Siberia. Rather, the term "Siberia" served as a decorative term that framed POWs as victims who had endured harsh conditions and cruelty in an exoticized Soviet East.
 
 ## 3. Building a corpus:
 For the sake of this lesson, we have compiled a sample dataset of selections from digitized POW memoirs to search for place names. Due to copyright restrictions, these are not the full text of the memoirs but rather snippets from roughly 35 sources. [You can download the text corpus here**insert hyperlink to some repository**]().
@@ -29,7 +29,8 @@ In short, a gazetteer is merely a list of place names. For our example, we are u
 
 As a quick side note, this encyclopedia is an interesting example of the many layers of languages involved in studying Soviet history. The original source book is in German, meaning it uses German transliteration standards for the Russian Cyrillic alphabet. Generally, the places named in the book represent the contemporary Soviet names. This means that the places might not be called that today or they might be Russified versions of places that are more commonly named in a different way due to post-Soviet identity politics. Finally, some of the place names may still have the same name, but as an added difficulty, the German transliteration is of a Russian transliteration of a local language, such as Armenian, providing extra layers of distortion to the later mapping process.
 
-The gazetteer from this lesson also is an example of a historical gazetteer. That is, these names are those utilized by a particular regime during a specific historical context. Trying to map the places named in the memoirs from this case is not a simple task as the names have changed both in the Soviet and post-Soviet era. By using a resource such as the World Historical Gazetteer, it is possible to have the larger historical gazetteer system serve as a crosswalk between the historical and contemporary names, giving us the ability to easily map these historical locations on a modern map. This process is not foolproof with larger, common geographic information systems such as Google Maps or ArcGIS. 
+The gazetteer from this lesson also is an example of a historical gazetteer. That is, these names are those utilized by a particular regime during a specific historical context. Trying to map the places named in the memoirs from this case is not a simple task as the names have changed both in the Soviet and post-Soviet era. By using a resource such as the World Historical Gazetteer, it is possible to have the larger historical gazetteer system serve as a crosswalk between the historical and contemporary names, giving us the ability to easily map these historical locations on a modern map. This process is not foolproof with larger, common geographic information systems such as Google Maps or ArcGIS.
+
 Users can build their own gazetteer simply by listing places of importance for their study in an Excel spreadsheet and saving the document as a comma-separated value (CSV) file. Note, for this lesson and the World Historical Gazetteer, it is best to only focus on the names of settlements (i.e. towns and cities). The World Historical Gazetteer does not currently support mapping and geolocating for states or countries at this point in time. 
 
 ## 5. Finding Places in Text with Python
@@ -199,16 +200,7 @@ Lager 150 1
 Grjasowez 1
 ```
 
-## Direct vs. Indirect Place Mention 
-https://pmbaumgartner.github.io/blog/holy-nlp/ 
-
-```python
-def token_is_direct_place_mention(token):
-    nsubj = token.dep_ == 'nsubj'
-    head_verb = token.head.pos_ == 'VERB'
-    person = token.ent_type_ == 'PERSON'
-    return nsubj and head_verb and person
-```
+## HTML with displacy 
 
 ## Export our data
 
