@@ -287,6 +287,8 @@ Here is an example of how to access the latitute and longitude this this particu
 data['http://de.dbpedia.org/resource/Grjasowez']['http://www.georss.org/georss/point'][0]['value']
 ```
 
+Before moving on, it is important to note that `spacy-dbpedia-spotlight` is like the Matcher. It takes a predicted entity (a person, place, or organization) and searches dbpedia for a corresponding entry. It can make a match, but it is not able to look at the context of the text to predict whether "I. Ivanov" is a badmitton player or a skiier. spaCy has the capacity to use the surrounding text to disambiguate the results. "Ivan cherished badmitton" and "The great skiier, Ivanov..." will return different link predictions given the textual context and frequency of the record in the corpus. This is a more involved process that we can detail here. However, one of the developers of spaCy, Sofie Van Landeghem, has recorded [a very useful video on this process](https://youtu.be/8u57WSXVpmw) for those advanced users who require this functionality.   
+
 ## Export our data
 
 To save our results, we can create a CSV file that contains all of our matches.  A very common and convenient way to do this is the Pandas library (`pip install pandas`).   
