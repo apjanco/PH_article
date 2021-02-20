@@ -231,7 +231,10 @@ To see your results in the context of the text, spaCy includes a tool called dis
 ```python 
 from spacy import displacy 
 displacy.serve(doc, style="ent")
-```
+```  
+
+![entity_recognition_image](ner_displacy.png)  
+
 **jupyter notebook**
 ```python
 displacy.render(doc, jupyter=True, style="ent")
