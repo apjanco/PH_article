@@ -20,7 +20,7 @@ This lesson is an application of co-author Susan Grunewald's research and serves
 In this lesson, we will use a list of camp names to identify mentions of camps and locations in POW memoirs. This data can then be mapped to demonstrate that not all direct place mentions in POW memoirs were in Siberia. Rather, the term "Siberia" served as a decorative term that framed POWs as victims who had endured harsh conditions and cruelty in an exoticized Soviet East.
 
 ## 3. Building a corpus:
-For the sake of this lesson, we have compiled a sample dataset of selections from digitized POW memoirs to search for place names. Due to copyright restrictions, these are not the full text of the memoirs but rather snippets from roughly 35 sources. [You can download the text corpus here](places_texts.txt).
+For the sake of this lesson, we have compiled a sample dataset of selections from digitized POW memoirs to search for place names. Due to copyright restrictions, these are not the full text of the memoirs but rather snippets from roughly 35 sources. [You can download the text corpus here](place_texts.txt).
 
 To build your own corpus for this exercise, all you need are files saved in .txt format. If you need help building a corpus of .txt files, see [this existing *Programming Historian* tutorial by Andrew Akhlaghi](https://programminghistorian.org/en/lessons/OCR-and-Machine-Translation) for instruction on how to turn PDF files into machine readable text files. 
 
