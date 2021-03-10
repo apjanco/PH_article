@@ -31,7 +31,9 @@ As a quick side note, this encyclopedia is an interesting example of the many la
 
 The gazetteer from this lesson also is an example of a historical gazetteer. That is, these names are those utilized by a particular regime during a specific historical context. Trying to map the places named in the memoirs from this case is not a simple task as the names have changed both in the Soviet and post-Soviet era. By using a resource such as the World Historical Gazetteer, it is possible to have the larger historical gazetteer system serve as a crosswalk between the historical and contemporary names, giving us the ability to easily map these historical locations on a modern map. This process is not foolproof with larger, common geographic information systems such as Google Maps or ArcGIS.
 
-Users can build their own gazetteer simply by listing places of importance for their study in an Excel spreadsheet and saving the document as a comma-separated value (CSV) file. Note, for this lesson and the World Historical Gazetteer, it is best to only focus on the names of settlements (i.e. towns and cities). The World Historical Gazetteer does not currently support mapping and geolocating for states or countries at this point in time. 
+Users can build their own gazetteer simply by listing places of importance for their study in an Excel spreadsheet and saving the document as a comma-separated value (CSV) file. Note, for this lesson and the World Historical Gazetteer, it is best to only focus on the names of settlements (i.e. towns and cities). The World Historical Gazetteer does not currently support mapping and geolocating for states or countries at this point in time.
+
+[Download the sample gazetteer of German names for prisoner of war camps here](gazetteer.txt) for use with the rest of the steps of this lesson.
 
 ## 5. Finding Places in Text with Python
 From your computer’s perspective, text is nothing more than a sequence of characters. If you ask Python to iterate over a snippet of text, you’ll see that it returns just one letter at a time. Note that the index starts at 0, not 1 and that spaces are part of the sequence. 
