@@ -358,7 +358,11 @@ The WHG is free to use. To get started, register for an account and then sign in
 
 ![registration visualization](Register.JPG)
 
-You will be taken to the “Datasets” tab. Press “add new” to upload your Linked Pasts TSV to the WHG. Insert a title, such as “POW Memoir Places,” and a brief description. Do not check the public box for now, as we do not want this dataset to be visible to anyone by your own user account. You can in the future upload your historic place name information to the WHG if you desire to contribute to the project. Next, browse for you Linked Places TSV and upload it. Do not change the formatting selection. It must remain as Delimited/Spreadsheet.
+After registering and logging in, you will be taken to the “Datasets” tab. Press “add new” to upload your Linked Pasts TSV to the WHG. 
+
+![add new data visualization](AddData.JPG)
+
+Insert a title, such as “POW Memoir Places,” and a brief description. Do not check the public box for now, as we do not want this dataset to be visible to anyone by your own user account. You can in the future upload your historic place name information to the WHG if you desire to contribute to the project. Next, browse for you Linked Places TSV and upload it. Do not change the formatting selection. It must remain as Delimited/Spreadsheet.
 
 Once the dataset is successfully uploaded, you can begin what is known as the reconciliation process. Back on the “Data” tab, click on the TSV you uploaded. This will take you to a new screen to initially view the dataset’s metadata. Click on the “Reconciliation” tab at the top of this page. Reconciliation is the process of linking your TSV entries to the database of named place entities and their additional relations in the WHG. On the “Reconciliation” tab, press the “add new task” button. You currently have the option to reconcile your data with Getty TGN or Wikidata. Select one of the two options and press start. If you want to limit the geographical area of your results, apply a geographic constraint filter before pressing start. If none of the pre-defined regions are acceptable, you can create your own user area to fine tune the results given in the reconciliation process. 
 
