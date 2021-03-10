@@ -356,7 +356,7 @@ Now that we have a Linked Places TSV, we will upload it to the [World Historical
 
 The WHG is free to use. To get started, register for an account and then sign in. 
 
-![registration visualization](Register.jpg)
+![registration visualization](Register.JPG)
 
 You will be taken to the “Datasets” tab. Press “add new” to upload your Linked Pasts TSV to the WHG. Insert a title, such as “POW Memoir Places,” and a brief description. Do not check the public box for now, as we do not want this dataset to be visible to anyone by your own user account. You can in the future upload your historic place name information to the WHG if you desire to contribute to the project. Next, browse for you Linked Places TSV and upload it. Do not change the formatting selection. It must remain as Delimited/Spreadsheet.
 
