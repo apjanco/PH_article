@@ -136,7 +136,7 @@ print(gazetteer)
 
 >>> Extra Trick: Check the first and last entry in the list to make sure it’s not an empty string "" This will happen when you’ve got an empty row in the file.  Python will treat "" as a place, which is nonsense and not what you’re looking for. If the first entry is "", just remove it by slicing the list `gazetteer = gazetteer[1:]` This snips off the first entry.  To cut the last, use `gazetteer = gazetteer[:-1]` For more on slicing see [this *Programming Historian* tutorial](https://programminghistorian.org/en/lessons/manipulating-strings-in-python#slice). 
 
-### Matching Place Names 
+## Matching Place Names 
 Now that we have a list of place names, let’s find where those terms appear in our texts.  As an example, let’s use this sentence:
 
 ```text
@@ -225,7 +225,7 @@ Grjasowez LOC 13 14
 
 Just by looking at the text and the relationships between words, the model is able to correctly identify that Karl-Heinz Quade is a person (PER) and that Grjasowez is a place (LOC). Named entity recognition is a powerful tool for finding places, people and organizations in text.  You will encounter machine errors, so it's important to review the results and to correct errors.  With Matcher, you will not get these mistakes, but you also won't find places that are not in the gazetteer. 
 
-# Displacy
+## Displacy
 To see your results in the context of the text, spaCy includes a useful tool called displacy.  It will generate an image of the text and the predictions that can be very useful when assessing whether the results will be helpful to your research or introduce too many machine errors to be helpful. spaCy also offers a [web application](https://explosion.ai/demos/displacy-ent) that lets you quickly assess whether the results. Similar visualization can be created in your Python script or in a running [Jupyter notebook](https://programminghistorian.org/en/lessons/jupyter-notebooks). 
 
 **python script**
@@ -340,7 +340,7 @@ Path(filename).write_text(output_text)
 print('created: ', filename)
 ```
 
-### Reformatting for Linked Open Data
+## Reformatting for Linked Open Data
 Once you have an output file that lists which places are named in the corpus, it is possible to reformat the list into a particular data standard for use in an online system. Will will be using a specific linked open data (or LODLAM) format known as Linked Places Tab Separated Value (TSV) for this process. In brief, linked open data is a set of best practices for web publishing data, which allows interoperability between projects and systems. 
 
 Linked Places TSV is an attempt by spatial digital historians to create a data standard for the type of research we are performing in this lesson. This standard is an attempt to make a linked open data uniform formatting system so that researchers can easily share their data with other digital analysis platforms, codes, APIs, etc. You can see the [Linked Places Github](https://github.com/LinkedPasts/linked-places), part of the larger Linked Pasts project, for more details.
