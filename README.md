@@ -382,14 +382,34 @@ You will be taken to a new screen that asks you to match your record with record
 
 >>> The more information you put into the LP-TSV format, such as country codes, the easier it will be to make these matches. The associated information from the LP-TSV upload will appear on the left hand side of the reconciliation screen to help you understand all of the information provided on the right hand side. If you are building your own dataset, it is worth taking the time to add a country codes (ccodes) column into the file you upload as well as aat type with the corresponding type (e.g. settlement, state, country).
 
-Given the bare bones nature of this upload, it will be a little harder to make these matches. All of the results should come from the countries that made up the Soviet Union: Russia, Ukraine, Belarus, Estonia, Latvia, Lithuania, Moldova, Armenia, Azerbaijan, Georgia, Uzbekistan, Kazakhstan, Kyrgyzstan, Tajikistan, and Turkmenistan. To see this in action, let's start the reconciliation process. Our first review is for Jelabuga. It is indeed a close match for Yelabuga, so we will select "closeMatch" and then "save," which will advance us to the next item for review. 
+Given the bare bones nature of this upload, it will be a little harder to make these matches. All of the results should come from the countries that made up the Soviet Union: Russia, Ukraine, Belarus, Estonia, Latvia, Lithuania, Moldova, Armenia, Azerbaijan, Georgia, Uzbekistan, Kazakhstan, Kyrgyzstan, Tajikistan, and Turkmenistan. To see this in action, let's start the reconciliation process. Our first review is for Jelabuga. It is indeed a close match for Yelabuga, which we can tell by a variant of Yelabuga being listed as "Jelabuga@de," confirming that Jelabuga is the German language variant of Yelabuga. We will select "closeMatch" and then "save," which will advance us to the next item for review. 
 
 ![close match visualization](closeMatch.JPG)
 
+The next location for review is Keller. We can tell that this example is no match because the suggested match is in Italy. As our data only concerns places in the USSR, we can save no match and quickly move on. Note that if you realize you made a mistake, you can go back one previous save by pressing the "Undo last save" button on the top left of the Reconciliation Review" screen.
 
-On the “Data” page, click on your dataset. In the new page that opens, click on “Browse” to get a rough rendering of your dataset on a map. You can download a PNG of the map by pressing the download icon that appears in the top left corner of the map. 
+![no match visualization](NoMatch.JPG)
+
+Go ahead an finish the review of the remaining 23 records for Pass 1. As a hint, out of the 25 places for Pass 1 reconciliation, only Yelabuga, Kupjansk, Atkarsk, Makejewka, Kokand, Selenodolsk, Merefa, Usa [Belarus], Wjasma, Fastow,and Owrutsch are close matches.
+
+Once you complete review of Pass 1, you are automatically taken to complete review of Pass 2. For now, go back to the Data button on the top right corner of the screen to return to your data tab. Click on your "POW Memoir Places" dataset again to go to its metadata page. If you click on the "Browse" tab next to the "Metadata" tab, you will now see that there are geometries for the places we decided were close matches. These places now appear on the map preview.
+
+![map preview visualization](MapPreview.JPG)
+
+If you click on the "Reconciliation" tab again, you can click on review next two Pass 2 to keep reviewing locations. If you wish, you can complete going through the 101 locations for Pass 2. Should you complete the review process, you will get a map that looks like the one below.
+
+![full map visualization](FullMap.JPG)
+
+If you wish to download an image file of the map, you can do so by hovering over the download symbol in the top left corner of the map preview and then sliding your mouse over to the arrows that appear showing "download current size."
+
+![map download visualization](MapDownload.png)
+
 
 ## 7. Future Mapping Work and Suggested Further Lessons
-If you return to the “Metadata” tab, you can download an augmented dataset in Linked Places format. This augmented dataset will have the geographic coordinates (latitudes and longitudes) for your places. You can then use the augmented dataset in desktop or web-based mapping applications such as [QGIS](https://www.qgis.org/en/site/) or [ArcGIS Online](https://www.arcgis.com/index.html) to undertake more advanced geographic information system (GIS) spatial analysis. In these programs, you can change the map visualizations, perform analysis, or make a multimedia web mapping project. We highly suggest you look at the additional Programming Historian mapping lessons on [Installing QGIS and Adding Layers](https://programminghistorian.org/en/lessons/qgis-layers) as well as [Creating Vector Layers in QGIS](https://programminghistorian.org/en/lessons/vector-layers-qgis) to see how you can use the results of this lesson to carry out further analysis. 
+The reconciliation process will not only give you a static map, but it was also give you an augmented dataset to download. This augmented file will include the latitude and longitude coordinates for your close matches. You can download the augmented file from the dataset's Metadata tab. In th bottom right hand corner, there is a box that says "Downloads" and you can choose either the Linked Placed format GeoJSON file or a TSV.
+
+![augmented download visualization](AugmentedDownload.JPG)
+
+You can then use the augmented dataset in desktop or web-based mapping applications such as [QGIS](https://www.qgis.org/en/site/) or [ArcGIS Online](https://www.arcgis.com/index.html) to undertake more advanced geographic information system (GIS) spatial analysis. In these programs, you can change the map visualizations, perform analysis, or make a multimedia web mapping project. We highly suggest you look at the additional Programming Historian mapping lessons on [Installing QGIS and Adding Layers](https://programminghistorian.org/en/lessons/qgis-layers) as well as [Creating Vector Layers in QGIS](https://programminghistorian.org/en/lessons/vector-layers-qgis) to see how you can use the results of this lesson to carry out further analysis. 
 
 
