@@ -370,15 +370,22 @@ Once the dataset is successfully uploaded, you can begin what is known as the re
 
 ![start reconciliation visualization](ReconciliationStart.JPG)
 
-You currently have the option to reconcile your data with Getty TGN or Wikidata. Select one of the two options and press start. If you want to limit the geographical area of your results, apply a geographic constraint filter before pressing start. If none of the pre-defined regions are acceptable, you can create your own user area to fine tune the results given in the reconciliation process.
+You currently have the option to reconcile your data with Getty TGN or Wikidata. Select Wikidata and press start. If you want to limit the geographical area of your results, apply a geographic constraint filter before pressing start. If none of the pre-defined regions are acceptable, you can create your own user area to fine tune the results given in the reconciliation process.
 
 ![reconciliation begin visualization](ReconciliationStart2.JPG)
 
-After pressing Start, you will be returned to the main “Reconciliation” tab. The process will run for a while and you will receive an email when the process is complete. You can also refresh the screen every few seconds to see if it is done. 
+After pressing Start, you will be returned to the main “Reconciliation” tab. The process will run for a while and you will receive an email when the process is complete. You can also refresh the screen every few seconds to see if it is done. When it is done, you will be told how many locations need to be reviewed for each pass of the reconciliation process. In this case we will see that of our 133 records, 126 got hits. We now have to do a manual review of the hits to see if they are correct. Press the “Review” button next to "Pass 1" to begin the review.
 
+![reconciliation start visualization](ReconciliationStart3.JPG)
 
+You will be taken to a new screen that asks you to match your record with records in the WHG. You will be given a choice of potential matches on the right hand side of the screen. Hover over them and they will appear as green flashes on the map illustration screen. Your options are closeMatch or no match. You can only have one closeMatch per place so choose the one from the reconciliation area that best describes your place upload. It is also possible that none of the suggested matches are correct.   
 
-You will be told how many locations need to be reviewed for each pass of the reconciliation process. Press the “Review” button next to each of the passes that require review. You will be taken to a new screen that asks you to match your record with records in the WHG. You will be given a choice of potential matches on the right hand side of the screen. Hover over them and they will appear as green flashes on the map illustration screen. When you find the one (note - there should only be one and the type should match, that is look for something labeled as a settlement and not a state or some other type of geographic entity), select that it is a close match and hit save. You will then move onto the next record. Once all of the potential matches from the review levels have been checked, you should go back to the “Data” page.
+>>> The more information you put into the LP-TSV format, such as country codes, the easier it will be to make these matches. The associated information from the LP-TSV upload will appear on the left hand side of the reconciliation screen to help you understand all of the information provided on the right hand side. If you are building your own dataset, it is worth taking the time to add a country codes (ccodes) column into the file you upload as well as aat type with the corresponding type (e.g. settlement, state, country).
+
+Given the bare bones nature of this upload, it will be a little harder to make these matches. All of the results should come from the countries that made up the Soviet Union: Russia, Ukraine, Belarus, Estonia, Latvia, Lithuania, Moldova, Armenia, Azerbaijan, Georgia, Uzbekistan, Kazakhstan, Kyrgyzstan, Tajikistan, and Turkmenistan. To see this in action, let's start the reconciliation process. Our first review is for Jelabuga. It is indeed a close match for Yelabuga, so we will select "closeMatch" and then "save," which will advance us to the next item for review. 
+
+![close match visualization](closeMatch.JPG)
+
 
 On the “Data” page, click on your dataset. In the new page that opens, click on “Browse” to get a rough rendering of your dataset on a map. You can download a PNG of the map by pressing the download icon that appears in the top left corner of the map. 
 
