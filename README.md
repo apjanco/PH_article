@@ -307,27 +307,6 @@ Before moving on, it is important to note that `spacy-dbpedia-spotlight` is like
 
 ## Export our data
 
-After all this work, it's time to save our results. We can create a CSV file that contains all of our matches.  A very common and convenient way to do this is the Pandas library (`pip install pandas`).   
-
-```python
-import pandas as pd
-
-data = []
-for match_id, start, end in matches:
-    span = doc[start:end]
-    row = dict(
-        start=start, 
-        end=end, 
-        start_char= span.start_char,
-        end_char= span.end_char,
-        id=nlp.vocab.strings[match_id], 
-        text=span.text
-    )
-    data.append(row)
-df = pd.DataFrame(data)
-df.to_csv("my_matches.csv", index=False)  
-```
-
 The final step in this section is to export our matches in the [tab separated value (TSV) format required by the World Historical Gazetteer](https://github.com/LinkedPasts/linked-places). If you’ve used a spreadsheet program like Excel or Google Sheets, then you’re familiar with tabular data. This is structured information that has rows and columns. To store tabular data in a simple format, programmers often use tab-separated value (TSV) files. These are simple text files with symbols that split the text into rows and columns. Rows are separated by the new line character \n. The row is split into columns by tabs (\t). 
 
 ```python
