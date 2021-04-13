@@ -242,7 +242,7 @@ Grjasowez LOC 13 14
 Just by looking at the text and the relationships between words, the model is able to correctly identify that Karl-Heinz Quade is a person (PER) and that Grjasowez is a place (LOC). Named entity recognition is a powerful tool for finding places, people and organizations in text.  You will encounter machine errors, so it's important to review the results and to correct errors.  With Matcher, you will not get these mistakes, but you also won't find places that are not in the gazetteer. 
 
 ## Displacy
-To see your results in the context of the text, spaCy includes a useful tool called displacy.  It will generate an image of the text and the predictions which can be very useful when assessing whether the results will be helpful to your research or introduce too many machine errors to be helpful. spaCy also offers a [web application](https://explosion.ai/demos/displacy-ent) that lets you quickly assess predictions. Visualizations can be created both in Python script or in a running [Jupyter notebook](https://programminghistorian.org/en/lessons/jupyter-notebooks). 
+To see your results in the context of the text, spaCy includes a useful tool called displacy.  It will  thie an image of the text and the predictions which can be very useful when assessing whether the results will be helpful to your research or introduce too many machine errors to be helpful. spaCy also offers a [web application](https://explosion.ai/demos/displacy-ent) that lets you quickly assess predictions. Visualizations can be created both in Python script or in a running [Jupyter notebook](https://programminghistorian.org/en/lessons/jupyter-notebooks). 
 
 **python script**
 ```python 
@@ -257,6 +257,10 @@ displacy.serve(doc, style="ent")
 displacy.render(doc, jupyter=True, style="ent")
 ```
 With statistical models, you can also use displacy to create an useful visualization of the relationships between words in the text. Just use `style='dep'` To generate this visualization.
+
+![svg_dependency visualization](sentence.svg)
+
+
 ```python 
 displacy.render(doc, jupyter=True, style="dep")
 ```
@@ -269,7 +273,6 @@ svg = displacy.render(doc, style="dep")
 output_path = Path("sentence.svg")
 output_path.write_text(svg)
 ```
-![svg_dependency visualization](sentence.svg)
 
 ## Named entity linking
 
