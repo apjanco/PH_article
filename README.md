@@ -84,11 +84,11 @@ Keep in mind that computers are very precise and picky.  Any messiness in the te
 
 ## Natural language processing 
 
-While pure Python is sufficient for many tasks, natural language processing (NLP) libraries allow us to work computationally with the text as language. NLP reveals a whole host of linguistic attributes of the text that can be used for analysis.  For example, the machine will know if a word is a noun or a verb with part of speech tagging. We can find the direct object of a verb to determine who is speaking and the subject of that speech.  NLP gives your programs an instant boost of information that opens new forms of analysis. As a historian, I appreciate how NLP makes me consider the linguistic aspects of my sources in ways that I otherwise would not.    
+While pure Python is sufficient for many tasks, natural language processing (NLP) libraries allow us to work computationally with the text as language. NLP reveals a whole host of linguistic attributes of the text that can be used for analysis.  For example, the machine will know if a word is a noun or a verb with part of speech tagging. We can find the direct object of a verb to determine who is speaking and the subject of that speech.  NLP gives your programs an instant boost of information that opens new forms of analysis. As a historian, I also appreciate how NLP makes me consider the linguistic aspects of my sources in ways that I otherwise might not.    
 
-Our first NLP task is tokenization. This is where our text is split into meaningful parts; usually word tokens. The sentence, “Siberia has many rivers.” can be split into the tokens: <Siberia><has><many><rivers><.>  Note that the ending punctuation is now distinct from the word rivers. The rules for tokenization depend on the language your are using. For English and other languages with spaces between words, you often get good results simply by splitting the tokens on spaces. However, a host of rules are also needed to separate punctuation from a token, to split and normalize words (ex. "Let's" > Let us) as well as specific exceptions that don't follow regular patterns (for more see [spaCy documentation](https://spacy.io/usage/linguistic-features/#tokenization)).
+Our first NLP task is tokenization. This is where our text is split into meaningful parts; usually word tokens. The sentence, “Siberia has many rivers.” can be split into the tokens: <Siberia><has><many><rivers><.>  Note that the ending punctuation is now distinct from the word rivers. The rules for tokenization depend on the language your are using. For English and other languages with spaces between words, you often get good results simply by splitting the tokens on spaces. However, a host of rules are also needed to separate punctuation from a token, to split and normalize words (ex. "Let's" > Let us) as well as specific exceptions that don't follow regular patterns.
 
-For this lesson, we’ll be using an NLP library called [spaCy](https://spacy.io/). This library focuses on “practical NLP” and is designed to be fast, simple and to work well on a basic laptop.  For these reasons, spaCy can be a good choice for the practice-minded historian without a powerful computer or research cluster. As a library, spaCy is highly opinionated and simplicity comes at the cost of choices being made on your behalf. As you learn more about NLP, the [spaCy documentation](https://spacy.io/) is a good place to learn about their specific approach and to assess whether it's the best choice for your particular project.  That said, spaCy works extrelemy well for common tasks such as tokenization, part of speech tagging and named entity recognition. Similar libraries, such as [NLTK](https://www.nltk.org/) or [Stanza](https://stanfordnlp.github.io/stanza/ner.html) are also excellent choices and you can learn a lot by comparing the different approaches these libraries take to similar problems.  
+For this lesson, we’ll be using an NLP library called [spaCy](https://spacy.io/). This library focuses on “practical NLP” and is designed to be fast, simple and works well on a basic laptop.  For these reasons, spaCy can be a good choice for the practice-minded historian without a powerful computer or research cluster. As a library, spaCy is highly opinionated and simplicity comes at the cost of choices being made on your behalf. As you learn more about NLP, the [spaCy documentation](https://spacy.io/) is a good place to learn about their specific approach and to assess whether it's the best choice for your particular project.  That said, spaCy works extrelemy well for common tasks such as tokenization, part of speech tagging and named entity recognition. Similar libraries, such as [NLTK](https://www.nltk.org/) or [Stanza](https://stanfordnlp.github.io/stanza/ner.html) are also excellent choices and you can learn a lot by comparing the different approaches these libraries take to similar problems.  
 
 Once you’ve run `pip install spacy` [(see this article if you’re new to pip)](https://programminghistorian.org/en/lessons/installing-python-modules-pip), you can now import the object for your language that will have the tokenization rules specific to your language. The spaCy documentation [here](https://spacy.io/usage/models/#languages) lists the currently supported languages and their language codes.
 
@@ -145,7 +145,7 @@ Now that we have a list of place names, let’s find where those terms appear in
 Karl-Heinz Quade ist von März 1944 bis August 1948 im Lager 150 in Grjasowez interniert.
 ```
 
-"Karl-Heinz Quade was interned in Camp 150 in Gryazovets from March 1944 to August 1948." Looking at the text, there’s one clear place name Gryazovets, which is a town 450 km from Moscow. We just need to show our computer how to find it (and all the other places we care about). 
+"Karl-Heinz Quade was interned in Camp 150 in Gryazovets from March 1944 to August 1948." Looking at the text, there’s one place name, Gryazovets, which is a town 450 km from Moscow. We just need to show our computer how to find it (and all the other places we care about). To do this, we'll use spaCy's Matcher tool.  
 
 ```python
 from spacy.lang.de import German
@@ -188,7 +188,7 @@ The pattern can be any sequence of tokens and their attributes. For more on how 
 
 ## Loading Text Files
 
-In the examples above, we processed a single sentence. That might be all you need, but most often you'll need to process multiple texts at once. The code below will load an entire directory full of txt files. Using Python's pathlib library, we will create a Path object.  If my files are located in `/home/Documents/texts`, the code would be `texts_folder = Path("/home/Documents/texts")`. Pathlib gives us an easy way to iterate over all the files in the directory with `texts_folder.iterdir()` as well as a `read_text()` method that will load the text into memory as a python variable. We can do all of this in one line using a list comprehention `texts = [file.read_text() for file in Path("/home/Documents/texts").iterdir()]`. This will load the text from each file in the directory and leave us with a list of the loaded texts.
+In the examples above, we processed a single sentence. That might be all you need, but most often you'll need to process multiple texts at once. The code below will load an entire directory full of txt files. Using Python's pathlib library, we will create a Path object.  If my files are located in `/home/Documents/texts`, the code would be `texts_folder = Path("/home/Documents/texts")`. Pathlib gives us an easy way to iterate over all the files in the directory with `texts_folder.iterdir()` as well as a `read_text()` method that will load the text into memory as a python variable. We can do all of this in one line using a list comprehension `texts = [file.read_text() for file in Path("/home/Documents/texts").iterdir()]`. This will load the text from each file in the directory and leave us with a list of the loaded texts.
 
 ```python 
 texts = [file.read_text() for file in Path('folder_with_texts_in_it').iterdir()]
@@ -197,7 +197,7 @@ for doc in nlp.pipe(texts, batch_size=50):
     for match_id, start, end in matches:
         print(start, end, doc[start:end].text)
 ```
-Note that we used spaCy's nlp.pipe method which will process the texts more efficiently as a stream rather than one at a time. 
+Note that we used spaCy's nlp.pipe method which will process the texts more efficiently as a stream of data rather than one at a time. 
 
 
 ## Term Frequency 
@@ -223,9 +223,9 @@ Grjasowez 1
 
 ## Named entity recognition 
 
-Up to this point, we have been using the spaCy matcher to search a document for specific place names.  It will find all of the places in our list if they occur in the text.  However, what if we want to find places that are not in the list? What are all the places that appear in the text? For this task, there are pre-trained models that can generally identify place names.  These are statistical models that have learned the general "look and feel" of a place name and can make predictions.  This means that the model can identify places that were not in its training data.  It also means that it can make mistakes. With the jump into machine learning, it's important that you keep in mind that the machine is making informed predictions based on what it has learned.  If your materials are significantly different from what the model was trained on, say Ottoman government texts rather than contemporary Turkish newspaper articles, you should expect rather poor performance.  It is also possible to fine-tune a model on your materials to improve accuracy.     
+Up to this point, we have been using the spaCy matcher to search a document for specific place names.  It will find all of the places in our list if they occur in the text.  However, what if we want to find places that are not in the list? What are all the places that appear in the text? For this task, there are pre-trained models for many languages that can identify place names. These are statistical models that have learned the general "look and feel" of a place name and can make predictions.  This means that the model can identify places that were not in its training data. It also means that it can make mistakes. With the jump into machine learning, it's important that you keep in mind that the machine is making informed predictions based on what it has learned. If your materials are significantly different from what the model was trained on, say Ottoman government texts rather than contemporary Turkish newspaper articles, you should expect rather poor performance. It is also possible to fine-tune a model on your materials to improve accuracy.     
 
-To work with a pre-trained model in spaCy, you'll need to download a model.  A list of the current options can be found [here](https://spacy.io/models).  For our German example, use the command line interface to download the small model trained on newspaper articles: `python -m spacy download de_core_news_sm`  To load the model and identify named entities use the following: 
+To work with a pre-trained model in spaCy, you'll need to download one.  A list of the current options can be found [here](https://spacy.io/models).  For our German example, use the command line interface to download the small model trained on newspaper articles: `python -m spacy download de_core_news_sm`.  To load the model and identify named entities use the following: 
 ```python
 import spacy 
 nlp = spacy.load("de_core_news_sm")
@@ -242,7 +242,7 @@ Grjasowez LOC 13 14
 Just by looking at the text and the relationships between words, the model is able to correctly identify that Karl-Heinz Quade is a person (PER) and that Grjasowez is a place (LOC). Named entity recognition is a powerful tool for finding places, people and organizations in text.  You will encounter machine errors, so it's important to review the results and to correct errors.  With Matcher, you will not get these mistakes, but you also won't find places that are not in the gazetteer. 
 
 ## Displacy
-To see your results in the context of the text, spaCy includes a useful tool called displacy.  It will generate an image of the text and the predictions that can be very useful when assessing whether the results will be helpful to your research or introduce too many machine errors to be helpful. spaCy also offers a [web application](https://explosion.ai/demos/displacy-ent) that lets you quickly assess whether the results. Similar visualization can be created in your Python script or in a running [Jupyter notebook](https://programminghistorian.org/en/lessons/jupyter-notebooks). 
+To see your results in the context of the text, spaCy includes a useful tool called displacy.  It will generate an image of the text and the predictions which can be very useful when assessing whether the results will be helpful to your research or introduce too many machine errors to be helpful. spaCy also offers a [web application](https://explosion.ai/demos/displacy-ent) that lets you quickly assess predictions. Visualizations can be created both in Python script or in a running [Jupyter notebook](https://programminghistorian.org/en/lessons/jupyter-notebooks). 
 
 **python script**
 ```python 
@@ -261,7 +261,7 @@ With statistical models, you can also use displacy to create an useful visualiza
 displacy.render(doc, jupyter=True, style="dep")
 ```
 
-Displacy visualization can also be saved as a file for use elsewhere ([docs](https://spacy.io/usage/visualizers#html)).
+Displacy visualizations can also be saved to a file for use elsewhere ([docs](https://spacy.io/usage/visualizers#html)).
 ```python
 from pathlib import Path 
 
@@ -273,9 +273,9 @@ output_path.write_text(svg)
 
 ## Named entity linking
 
-While it can be very helpful to see which places or people appear in a text with named entity recognition, the results are often ambiguous.  A NER model can only say that "I. Ivanov" is a PERSON. Was it Ivan Ivanov the Russian cross-country skier? Maybe it's Ivan Ivanov the Bulgarian badminton player?  A human reader would likely know from the context of the text which person was being discussed. Named entity linking is the process of connecting a place or person name to a specific record in a knowledge base. This link connects the predicted entity to a unique record and its associated data.  For example, dbpedia records for a place often contain the latitute and longitude, region, country, time zone, population and other related data. By connecting our text to the dbpedia knowledge base, we are able to utilize external information in our analysis. 
+While it can be very helpful to see which places or people appear in a text with named entity recognition, the results are often ambiguous.  A NER model can only say that "I. Ivanov" is a PERSON. Was it Ivan Ivanov the Russian cross-country skier? Maybe it's Ivan Ivanov the Bulgarian badminton player?  A human reader would likely know from the context of the text which person was being discussed. Named entity linking is the process of connecting a place or person’s name to a specific record in a knowledge base. This link connects the predicted entity to a unique record and its associated data.  For example, DBpedia records for a place often contain the latitude and longitude, region, country, time zone, population, and other related data. By connecting our text to the DBpedia knowledge base, we are able to utilize external information in our analysis. 
 
-There is a useful Python library for spaCy and the dbpedia spotlight.  This library will attempt to match predicted entities with a record in dbpedia.  This relationship will then be available as part of the entity span. To add this library, enter `pip install spacy-dbpedia-spotlight` in the command line and press enter.  
+There is a useful Python library for spaCy and the DBpedia spotlight.  This library will attempt to match predicted entities with a record in DBpedia.  This relationship will then be available as part of the entity span. To add this library, enter `pip install spacy-dbpedia-spotlight` in the command line and press enter. 
 
 ```python
 import spacy
@@ -307,7 +307,7 @@ Before moving on, it is important to note that `spacy-dbpedia-spotlight` is like
 
 ## Export our data
 
-To save our results, we can create a CSV file that contains all of our matches.  A very common and convenient way to do this is the Pandas library (`pip install pandas`).   
+After all this work, it's time to save our results. We can create a CSV file that contains all of our matches.  A very common and convenient way to do this is the Pandas library (`pip install pandas`).   
 
 ```python
 import pandas as pd
@@ -328,7 +328,7 @@ df = pd.DataFrame(data)
 df.to_csv("my_matches.csv", index=False)  
 ```
 
-The final step in this section is to export our matches in the [tab separated value (TSV) format required by the World Historical Gazetteer](https://github.com/LinkedPasts/linked-places). A TSV file is just formatted text, so we’ll create the file manually using \t to add tab separators and \n to end each line. 
+The final step in this section is to export our matches in the [tab separated value (TSV) format required by the World Historical Gazetteer](https://github.com/LinkedPasts/linked-places). If you’ve used a spreadsheet program like Excel or Google Sheets, then you’re familiar with tabular data. This is structured information that has rows and columns. To store tabular data in a simple format, programmers often use tab-separated value (TSV) files. These are simple text files with symbols that split the text into rows and columns. Rows are separated by the new line character \n. The row is split into columns by tabs (\t). 
 
 ```python
 start_date = 1800
@@ -355,15 +355,6 @@ filename = source_title.lower().replace(' ','_') + '.tsv'
 Path(filename).write_text(output_text)
 print('created: ', filename)
 ```
-
-## Reformatting for Linked Open Data
-Once you have an output file that lists which places are named in the corpus, it is possible to reformat the list into a particular data standard for use in an online system. Will will be using a specific linked open data (or LODLAM) format known as Linked Places Tab Separated Value (TSV) for this process. In brief, linked open data is a set of best practices for web publishing data, which allows interoperability between projects and systems. 
-
-Linked Places TSV is an attempt by spatial digital historians to create a data standard for the type of research we are performing in this lesson. This standard is an attempt to make a linked open data uniform formatting system so that researchers can easily share their data with other digital analysis platforms, codes, APIs, etc. You can see the [Linked Places Github](https://github.com/LinkedPasts/linked-places), part of the larger Linked Pasts project, for more details.
-
-Download the blank but formatted [sample Linked Places TSV here](LinkedPlacesTSV.txt). You will notice that there are a handful of columns in this sample sheet. These are the mandatory columns required for the World Historical Gazetteer.
-
-To double check, here is a properly formatted Linked Places TSV for the lesson dataset. [Download it here](ScriptOutput.txt) to check your progress or for use in the next part of the lesson. 
 
 ## 6. Uploading to the World Historical Gazetteer
 Now that we have a Linked Places TSV, we will upload it to the [World Historical Gazetteer (WHG)](http://whgazetteer.org/). The WHG is a fully web based application. It indexes place references drawn from historical sources, adding temporal depth to a core of approximately 1.8 million modern records. This is especially useful for places whose names have changed over time. By using the WHG, users can upload their data and rapidly find the coordinates of historical places. As mentioned in the gazetteer section above, this service provides automatic geocoding that is suitable for use with historical data. Many common geocoding services such as Google Maps or those behind a paywall barrier such as through ArcGIS are unsuitable for historical research as they are based primarily upon 21st century information. They rarely support historical name information beyond the most common instances. Additionally, the WHG also supports a multitude of languages. Finally, geocoding and basic mapping are achievable through a graphical user interface. This circumnavigates the need to use a script, to trace layers from maps in a different program, or create relational databases and table joins in GIS software.
