@@ -186,6 +186,16 @@ We now see (start index, end index, match):
 
 The pattern can be any sequence of tokens and their attributes. For more on how to wield this new superpower, see the [spaCy Matcher documentation](https://spacy.io/api/matcher/), the [spaCy course](https://course.spacy.io) and the [Rule-based Matcher Explorer](https://explosion.ai/demos/matcher). 
 
+## Loading Text Files
+
+In the examples above, we processed a single sentence.  In most cases you'll want to process several text files.
+
+```python 
+TODO iterdir()
+do the exact with many files 
+```
+
+
 ## Term Frequency 
 
 At this point you may want to know which items appear most frequently in the text.  To get frequencies, you can use Python’s Counter object. In the following cell, we create an empty list and then add the text for each match. The counter will then return the frequency for each term in the list.   
