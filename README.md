@@ -143,7 +143,7 @@ Now that we have a list of place names, let’s find where those terms appear in
 Karl-Heinz Quade ist von März 1944 bis August 1948 im Lager 150 in Grjasowez interniert.
 ```
 
-"Karl-Heinz Quade was interned in Camp 150 in Gryazovets from March 1944 to August 1948." Looking at the text, there’s one place name, Gryazovets, which is a town 450 km from Moscow. We just need to show our computer how to find it (and all the other places we care about). To do this, we'll use spaCy's Matcher tool.  
+"Karl-Heinz Quade was interned in Camp 150 in Gryazovets from March 1944 to August 1948." Looking at the text, there’s one place name, [Gryazovets](https://www.openstreetmap.org/search?query=Gryazovets#map=12/58.8695/40.2395), which is a town 450 km from Moscow. We just need to show our computer how to find it (and all the other places we care about). To do this, we'll use spaCy's Matcher tool, which a powerful tool to search the tokenized text for patterns in words and their attributes. 
 
 ```python
 from spacy.lang.de import German
@@ -217,7 +217,7 @@ Lager 150 1
 Grjasowez 1
 ```
 
-## Named entity recognition 
+## Named Entity Recognition 
 
 Up to this point, we have been using the spaCy matcher to search a document for specific place names.  It will find all of the places in our list if they occur in the text.  However, what if we want to find places that are not in the list? What are all the places that appear in the text? For this task, there are pre-trained models for many languages that can identify place names. These are statistical models that have learned the general "look and feel" of a place name and can make predictions.  This means that the model can identify places that were not in its training data. It also means that it can make mistakes. With the jump into machine learning, it's important that you keep in mind that the machine is making informed predictions based on what it has learned. If your materials are significantly different from what the model was trained on, say Ottoman government texts rather than contemporary Turkish newspaper articles, you should expect rather poor performance. It is also possible to fine-tune a model on your materials to improve accuracy.     
 
@@ -270,7 +270,7 @@ output_path = Path("sentence.svg")
 output_path.write_text(svg)
 ```
 
-## Named entity linking
+## Named Entity Linking
 
 While it's useful to note that Karl-Heinz Quade is a person, it would be even better to know _who_ is Karl-Heinz Quade? Named entity linking is the process of connecting a place or person’s name to a specific record in a knowledge base. This link connects the predicted entity to a unique record and its associated data.  For example, DBpedia records for a place often contain the latitude and longitude, region, country, time zone, population, and other related data. By connecting our text to the DBpedia knowledge base, we are able to utilize external information in our analysis. 
 
@@ -307,7 +307,7 @@ data['http://de.dbpedia.org/resource/Grjasowez']['http://www.georss.org/georss/p
 
 Before moving on, it is important to note that `spacy-dbpedia-spotlight` is like the Matcher. It takes a predicted entity (a person, place, or organization) and searches DBpedia for a corresponding entry. It can make a match, but it is not able to look at the context of the text to predict whether "I. Ivanov" is the famous Bulgarian badminton player or the Russian skier. spaCy has the capacity to use the surrounding text to disambiguate the results. "Ivan cherished badminton" and "The great skier, Ivanov..." will return different link predictions given the textual context and frequency of the record in the corpus. This is a more involved process that we can detail here. However, one of the developers of spaCy, Sofie Van Landeghem, has recorded [a very useful video on this process](https://spacy.io/universe/project/video-spacy-irl-entity-linking) for those advanced users who require this functionality.   
 
-## Export our data
+## Export Our Data
 
 The final step in this section is to export our matches in the [tab separated value (TSV) format required by the World Historical Gazetteer](https://github.com/LinkedPasts/linked-places). If you’ve used a spreadsheet program like Excel or Google Sheets, then you’re familiar with tabular data. This is structured information that has rows and columns. To store tabular data in a simple format, programmers often use tab-separated value (TSV) files. These are simple text files with symbols that split the text into rows and columns. Rows are separated by the new line character \n. The row is split into columns by tabs (\t). 
 
