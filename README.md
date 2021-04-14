@@ -309,7 +309,7 @@ Before moving on, it is important to note that `spacy-dbpedia-spotlight` is like
 
 ## Export Our Data
 
-The final step in this section is to export our matches in the [tab separated value (TSV) format required by the World Historical Gazetteer](https://github.com/LinkedPasts/linked-places). If you’ve used a spreadsheet program like Excel or Google Sheets, then you’re familiar with tabular data. This is structured information that has rows and columns. To store tabular data in a simple format, programmers often use tab-separated value (TSV) files. These are simple text files with symbols that split the text into rows and columns. Rows are separated by the new line character \n. The row is split into columns by tabs (\t). 
+The final step in this section is to export our matches in the [tab separated value (TSV) format required by the World Historical Gazetteer](https://github.com/LinkedPasts/linked-places). If you’ve used a spreadsheet program like Excel or Google Sheets, then you’re familiar with tabular data. This is structured information that has rows and columns. To store tabular data in a simple format, programmers often use tab-separated value (TSV) files. These are simple text files with symbols that split the text into rows and columns. Rows are separated by the new line character `\n`. The row is split into columns by tabs `\t`. 
 
 ```python
 start_date = 1800
