@@ -188,17 +188,15 @@ The pattern can be any sequence of tokens and their attributes. For more on how 
 
 ## Loading Text Files
 
-In the examples above, we processed a single sentence. That might be all you need, but most often you'll need to process multiple texts at once. The code below will load an entire directory full of txt files. Using Python's pathlib library, we will create a Path object.  If my files are located in `/home/Documents/texts`, the code would be `texts_folder = Path("/home/Documents/texts")`. Pathlib gives us an easy way to iterate over all the files in the directory with `texts_folder.iterdir()` as well as a `read_text()` method that will load the text into memory as a python variable. We can do all of this in one line using a list comprehension `texts = [file.read_text() for file in Path("/home/Documents/texts").iterdir()]`. This will load the text from each file in the directory and leave us with a list of the loaded texts.
+In the examples above, we processed a single sentence. That might be all you need, but most often you'll need to process multiple texts at once. The code below will load an entire directory full of txt files. Pathlib gives us an easy way to iterate over all the files in the directory with `iterdir()` as well as a `read_text()` method that will load the text. The code below will list the filename, location and name of every place from our gazetteer that appears in the texts.  
 
 ```python 
-texts = [file.read_text() for file in Path('folder_with_texts_in_it').iterdir()]
-for doc in nlp.pipe(texts, batch_size=50):
+for file in Path('folder_with_texts_in_it').iterdir():
+    doc = nlp(file.read_text())
     matches = matcher(doc)
     for match_id, start, end in matches:
-        print(start, end, doc[start:end].text)
+        print(file.name, start, end, doc[start:end].text)
 ```
-Note that we used spaCy's nlp.pipe method which will process the texts more efficiently as a stream of data rather than one at a time. 
-
 
 ## Term Frequency 
 
