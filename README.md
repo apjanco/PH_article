@@ -312,12 +312,12 @@ Before moving on, it is important to note that `spacy-dbpedia-spotlight` is like
 The final step in this section is to export our matches in the [tab separated value (TSV) format required by the World Historical Gazetteer](https://github.com/LinkedPasts/linked-places). If you’ve used a spreadsheet program like Excel or Google Sheets, then you’re familiar with tabular data. This is structured information that has rows and columns. To store tabular data in a simple format, programmers often use tab-separated value (TSV) files. These are simple text files with symbols that split the text into rows and columns. Rows are separated by the new line character `\n`. The row is split into columns by tabs `\t`. 
 
 ```python
-start_date = 1800
-end_date = 2000
+start_date = "1800" #YYYY-MM-DD
+end_date = "2000"
 source_title = "Karl-Heinz Quade Diary"
 
 output_text = ""
-column_header = "id \t title \t title_source \t start \t end  \n"  
+column_header = "id\ttitle\ttitle_source\tstart\tend\n"  
 output_text += column_header  
 
 places_list = []
@@ -330,7 +330,7 @@ if doc.ents:
 unique_places = set(places_list)
 
 for id, place in enumerate(unique_places): 
-    output_text += f"{id} \t {place} \t {source_title} \t {start_date} \t {end_date} \n"
+    output_text += f"{id}\t{place}\t{source_title}\t{start_date}\t{end_date}\n"
 
 filename = source_title.lower().replace(' ','_') + '.tsv'
 Path(filename).write_text(output_text)
