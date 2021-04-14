@@ -86,7 +86,7 @@ Keep in mind that computers are very precise and picky.  Any messiness in the te
 
 While pure Python is sufficient for many tasks, natural language processing (NLP) libraries allow us to work computationally with the text as language. NLP reveals a whole host of linguistic attributes of the text that can be used for analysis.  For example, the machine will know if a word is a noun or a verb with part of speech tagging. We can find the direct object of a verb to determine who is speaking and the subject of that speech.  NLP gives your programs an instant boost of information that opens new forms of analysis. As a historian, I also appreciate how NLP makes me consider the linguistic aspects of my sources in ways that I otherwise might not.    
 
-Our first NLP task is tokenization. This is where our text is split into meaningful parts; usually word tokens. The sentence, “Siberia has many rivers.” can be split into the tokens: <Siberia><has><many><rivers><.>  Note that the ending punctuation is now distinct from the word rivers. The rules for tokenization depend on the language your are using. For English and other languages with spaces between words, you often get good results simply by splitting the tokens on spaces. However, a host of rules are also needed to separate punctuation from a token, to split and normalize words (ex. "Let's" > Let us) as well as specific exceptions that don't follow regular patterns.
+Our first NLP task is tokenization. This is where our text is split into meaningful parts, usually word tokens. The sentence, “Siberia has many rivers.” can be split into the tokens: <Siberia><has><many><rivers><.>  Note that the ending punctuation is now distinct from the word rivers. The rules for tokenization depend on the language you are using. For English and other languages with spaces between words, you often get good results simply by splitting the tokens on spaces. However, a host of rules are often needed to separate punctuation from a token, to split and normalize words (ex. "Let's" > Let us) as well as specific exceptions that don't follow regular patterns. 
 
 For this lesson, we’ll be using an NLP library called [spaCy](https://spacy.io/). This library focuses on “practical NLP” and is designed to be fast, simple and works well on a basic laptop.  For these reasons, spaCy can be a good choice for the practice-minded historian without a powerful computer or research cluster. As a library, spaCy is highly opinionated and simplicity comes at the cost of choices being made on your behalf. As you learn more about NLP, the [spaCy documentation](https://spacy.io/) is a good place to learn about their specific approach and to assess whether it's the best choice for your particular project.  That said, spaCy works extrelemy well for common tasks such as tokenization, part of speech tagging and named entity recognition. Similar libraries, such as [NLTK](https://www.nltk.org/) or [Stanza](https://stanfordnlp.github.io/stanza/ner.html) are also excellent choices and you can learn a lot by comparing the different approaches these libraries take to similar problems.  
 
@@ -223,7 +223,7 @@ Grjasowez 1
 
 Up to this point, we have been using the spaCy matcher to search a document for specific place names.  It will find all of the places in our list if they occur in the text.  However, what if we want to find places that are not in the list? What are all the places that appear in the text? For this task, there are pre-trained models for many languages that can identify place names. These are statistical models that have learned the general "look and feel" of a place name and can make predictions.  This means that the model can identify places that were not in its training data. It also means that it can make mistakes. With the jump into machine learning, it's important that you keep in mind that the machine is making informed predictions based on what it has learned. If your materials are significantly different from what the model was trained on, say Ottoman government texts rather than contemporary Turkish newspaper articles, you should expect rather poor performance. It is also possible to fine-tune a model on your materials to improve accuracy.     
 
-To work with a pre-trained model in spaCy, you'll need to download one.  A list of the current options can be found [here](https://spacy.io/models).  For our German example, use the command line interface to download the small model trained on newspaper articles: `python -m spacy download de_core_news_sm`.  To load the model and identify named entities use the following: 
+To work with a pre-trained model in spaCy, you'll need to download one.  A list of the current options can be found [here](https://spacy.io/models).  For our German example, use the command-line interface to download the small model trained on newspaper articles: `python -m spacy download de_core_news_sm`.  To load the model and identify named entities, use the following: 
 ```python
 import spacy 
 nlp = spacy.load("de_core_news_sm")
@@ -256,12 +256,12 @@ displacy.render(doc, jupyter=True, style="ent")
 ```
 With statistical models, you can also use displacy to create an useful visualization of the relationships between words in the text. Just use `style='dep'` To generate this visualization.
 
-![svg_dependency visualization](sentence.svg)
-
-
 ```python 
 displacy.render(doc, jupyter=True, style="dep")
-```
+```  
+
+![svg_dependency visualization](sentence.svg)
+
 
 Displacy visualizations can also be saved to a file for use elsewhere ([docs](https://spacy.io/usage/visualizers#html)).
 ```python
@@ -291,7 +291,7 @@ for ent in doc.ents:
 Grjasowez DBPEDIA_ENT http://de.dbpedia.org/resource/Grjasowez
 interniert DBPEDIA_ENT http://de.dbpedia.org/resource/Internierung
 ```
-Note that we now entites in the document with the "EBPEDIA_ENT" label and the URI for the dbpedia record. Karl-Heinz Quade does not have a page in dbpedia, so we don't get a match, but the Grjasowez record has a wealth of information. To access the data, you can send a request to the dbpedia server. Note that I have replace the human-readable page "resource" with a machine-readable "data" and that I add ".json" to the record name.  This will return the data as json.  I use the requests library to parse the json data and make it ready for use in my Python script. 
+Note that we now entites in the document with the "DBPEDIA_ENT" label and the URI for the DBpedia record. Karl-Heinz Quade does not have a page in DBpedia, so we don't get a match, but the Grjasowez record has a wealth of information. To access the data, you can send a request to the dbpedia server. Note that I have replace the human-readable page "resource" with a machine-readable "data". I then add ".json" to the record name, which will return the data as JSON.  I use the requests library to parse the json data and make it ready for use in my Python script. 
 
 ```python
 import requests
@@ -302,9 +302,12 @@ You can explore this data with `print(data)` or `data.keys()`. For more on json,
 Here is an example of how to access the latitute and longitude this this particular result:
 ```
 data['http://de.dbpedia.org/resource/Grjasowez']['http://www.georss.org/georss/point'][0]['value']
+```  
 ```
+'58.88333333333333 40.25'
+```  
 
-Before moving on, it is important to note that `spacy-dbpedia-spotlight` is like the Matcher. It takes a predicted entity (a person, place, or organization) and searches dbpedia for a corresponding entry. It can make a match, but it is not able to look at the context of the text to predict whether "I. Ivanov" is the famous Bulgarian badmitton player or the Russian skiier. spaCy has the capacity to use the surrounding text to disambiguate the results. "Ivan cherished badmitton" and "The great skiier, Ivanov..." will return different link predictions given the textual context and frequency of the record in the corpus. This is a more involved process that we can detail here. However, one of the developers of spaCy, Sofie Van Landeghem, has recorded [a very useful video on this process](https://youtu.be/8u57WSXVpmw) for those advanced users who require this functionality.   
+Before moving on, it is important to note that `spacy-dbpedia-spotlight` is like the Matcher. It takes a predicted entity (a person, place, or organization) and searches DBpedia for a corresponding entry. It can make a match, but it is not able to look at the context of the text to predict whether "I. Ivanov" is the famous Bulgarian badminton player or the Russian skier. spaCy has the capacity to use the surrounding text to disambiguate the results. "Ivan cherished badminton" and "The great skier, Ivanov..." will return different link predictions given the textual context and frequency of the record in the corpus. This is a more involved process that we can detail here. However, one of the developers of spaCy, Sofie Van Landeghem, has recorded [a very useful video on this process](https://spacy.io/universe/project/video-spacy-irl-entity-linking) for those advanced users who require this functionality.   
 
 ## Export our data
 
