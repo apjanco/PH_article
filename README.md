@@ -88,12 +88,12 @@ While pure Python is sufficient for many tasks, natural language processing (NLP
 
 Our first NLP task is tokenization. This is where our text is split into meaningful parts, usually word tokens. The sentence, “Siberia has many rivers.” can be split into the tokens: `<Siberia><has><many><rivers><.>`.  Note that the ending punctuation is now distinct from the word rivers. The rules for tokenization depend on the language you are using. For English and other languages with spaces between words, you often get good results simply by splitting the tokens on spaces. However, a host of rules are often needed to separate punctuation from a token, to split and normalize words (ex. "Let's" > Let us) as well as specific exceptions that don't follow regular patterns. 
 
-For this lesson, we’ll be using an NLP library called [spaCy](https://spacy.io/). This library focuses on “practical NLP” and is designed to be fast, simple and works well on a basic laptop.  For these reasons, spaCy can be a good choice for the practice-minded historian without a powerful computer or research cluster. As a library, spaCy is highly opinionated and simplicity comes at the cost of choices being made on your behalf. As you learn more about NLP, the [spaCy documentation](https://spacy.io/) is a good place to learn about their specific approach and to assess whether it's the best choice for your particular project.  That said, spaCy works extrelemy well for common tasks such as tokenization, part of speech tagging and named entity recognition. Similar libraries, such as [NLTK](https://www.nltk.org/) or [Stanza](https://stanfordnlp.github.io/stanza/ner.html) are also excellent choices and you can learn a lot by comparing the different approaches these libraries take to similar problems.  
+For this lesson, we’ll be using an NLP library called [spaCy](https://spacy.io/). This library focuses on “practical NLP” and is designed to be fast, simple and works well on a basic laptop.  For these reasons, spaCy can be a good choice for historical research tasks. As a library, spaCy is opinionated and simplicity comes at the cost of choices being made on your behalf. As you learn more about NLP, the [spaCy documentation](https://spacy.io/) is a good place to learn about their design choices and to assess whether it's the best solution for your particular project.  That said, spaCy works extrelemy well for tasks such as tokenization, part-of-speech tagging and named entity recognition (NER). Similar libraries, such as [NLTK](https://www.nltk.org/), [CLTK](http://cltk.org/) or [Stanza](https://stanfordnlp.github.io/stanza/ner.html) are also excellent choices and you can learn a lot by comparing the different approaches these libraries take to similar problems.  
 
 Once you’ve run `pip install spacy` [(see this article if you’re new to pip)](https://programminghistorian.org/en/lessons/installing-python-modules-pip), you can now import the object for your language that will have the tokenization rules specific to your language. The spaCy documentation [here](https://spacy.io/usage/models/#languages) lists the currently supported languages and their language codes.
 
-To load the language, you will import it just like any other Python module. For example, `from spacy.lang.de import German` or `from spacy.lang.en import English` 
-In Python, this line says to look in the spacy directory, then go into the subfolders `lang` and `de` to import the Language object called German from that folder.
+To load the language, you will import it. For example, `from spacy.lang.de import German` or `from spacy.lang.en import English` 
+In Python, this line goes to spaCy's directory, then into the subfolders `lang` and `de` to import the Language object called German from that folder.
 
 We are now able to tokenize our text with the following:
 ```python
@@ -114,7 +114,7 @@ for token in doc:
 ```
 Note that each token now has its own index.
 
-With the language object we can tokenize the text, remove stop words and punctuation, or many other common text processing tasks.  For further information, Ines Montani has created an excellent free [online course](https://course.spacy.io/en/).
+With the language object we can tokenize the text, remove stop words and punctuation, and many other common text processing tasks.  For further information, Ines Montani has created an excellent free [online course](https://course.spacy.io/en/).
 
 ## Load the gazetteer 
 
