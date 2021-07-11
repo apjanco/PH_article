@@ -62,7 +62,7 @@ The gazetteer from this lesson also is an example of a historical gazetteer. Tha
 
 Users can build their own gazetteer simply by listing places of importance for their study in an Excel spreadsheet and saving the document as a comma-separated value (CSV) file. Note, for this lesson and the World Historical Gazetteer, it is best to only focus on the names of settlements (i.e. towns and cities). The World Historical Gazetteer does not currently support mapping and geolocating for states or countries at this point in time.
 
-[We have provided a sample gazetteer of German names for prisoner of war camps](gazetteer.txt) for use with the rest of the steps of this lesson.
+[We have provided a sample gazetteer of German names for prisoner of war camps](https://raw.githubusercontent.com/apjanco/PH_article/main/gazetteer.txt) for use with the rest of the steps of this lesson.
 
 ## 5. Finding Places in Text with Python
 From your computer’s perspective, text is nothing more than a sequence of characters. If you ask Python to iterate over a snippet of text, you’ll see that it returns just one letter at a time. Note that the index starts at 0, not 1 and that spaces are part of the sequence. 
